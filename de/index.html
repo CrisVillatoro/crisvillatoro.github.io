@@ -12,14 +12,6 @@
 <link rel="alternate" hreflang="x-default" href="https://cristavillatoro.com/">
 
 
-
-
-
-
-
-
-
-
 <!-- Link preview (WhatsApp, LinkedIn, Slack, iMessage) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cristavillatoro.com/de/">
@@ -98,6 +90,7 @@
   }
   @media (max-width: 720px) { .nav-links { display: none; } }
 
+  /* i18n-chrome-start */
   .lang-switch { display: flex; gap: 10px; align-items: center; }
   .lang-switch a {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; letter-spacing: .08em;
@@ -106,6 +99,14 @@
   }
   .lang-switch a:hover { color: var(--text); }
   .lang-switch a.active { color: var(--accent); border-color: var(--border); background: var(--card); }
+  @media (max-width: 720px) {
+    .nav-links { display: flex; gap: 10px; align-items: center; }
+    .nav-links li { display: none; }
+    .nav-links li.lang-switch { display: flex; }
+    .lang-switch a { padding: 4px 8px; }
+    .logo { font-size: 15px; white-space: nowrap; }
+  }
+  /* i18n-chrome-end */
 
   /* ---------- hero ---------- */
   header.hero {
