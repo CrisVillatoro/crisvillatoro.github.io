@@ -12,6 +12,12 @@
 <link rel="alternate" hreflang="x-default" href="https://cristavillatoro.com/">
 
 
+
+
+
+
+
+
 <!-- Link preview (WhatsApp, LinkedIn, Slack, iMessage) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cristavillatoro.com/de/">
@@ -439,7 +445,7 @@
           <div class="chat-head">
             <span class="chat-dot"></span>
             <span class="chat-title">Cristas digitaler Zwilling</span>
-            <button class="chat-live" type="button" id="open-how-modal" title="How does this work? Nothing you type leaves this page.">skriptbasiert · privat<span class="info-i">i</span></button>
+            <button class="chat-live" type="button" id="open-how-modal" title="Wie funktioniert das? Nichts, was Sie eingeben, verlässt diese Seite.">skriptbasiert · privat<span class="info-i">i</span></button>
           </div>
           <div class="chat-body" id="chat-body">
             <div class="msg bot">Hallo! Ich bin Cristas digitaler Zwilling — eine skriptbasierte Vorschau der Assistenten, die sie
@@ -464,12 +470,12 @@
     <div class="about-grid">
       <div class="about-text reveal">
         <p>
-          I'm <strong>Crista Villatoro</strong>, Data &amp; AI Consultant in Berlin.
+          Ich bin <strong>Crista Villatoro</strong>, Data &amp; AI Consultant in Berlin.
           Mein Weg begann im <strong>Chemie- und Umweltingenieurwesen</strong> — ein Hintergrund, der mich gelehrt hat,
           komplexe Systeme in messbare, lösbare Teile zu zerlegen. Genau diese Denkweise prägt heute, wie ich Daten- und KI-Lösungen baue.
         </p>
         <p>
-          Heute unterstütze ich <strong>Airbus und CIMPA</strong> (ein Unternehmen von Sopra Steria) und verantworte dort ein
+          Heute arbeite ich an <strong>Airbus-Projekten bei CIMPA</strong> (einem Unternehmen von Sopra Steria) und verantworte dort ein
           <strong>Data-Governance-Portfolio mit über 40 Initiativen</strong> — ich entwerfe Datenprodukte, führe
           Datenqualitäts-Kampagnen durch und baue die Monitoring-Dashboards, auf die Teams über Enterprise-Datenplattformen
           wie <strong>Palantir Skywise</strong> hinweg vertrauen.
@@ -538,14 +544,14 @@
       <div class="proj featured reveal">
         <div class="proj-top">
           <div>
-            <h3>Enterprise Data Governance Portfolio</h3>
+            <h3>Enterprise-Data-Governance-Portfolio</h3>
             <div class="proj-role">Portfolio-Verantwortliche · Airbus / CIMPA</div>
           </div>
           <button class="proj-link" type="button" id="open-gov-modal">Alle Details →</button>
         </div>
         <p>
           End-to-end-Verantwortung für eine strategische Data-Governance-Roadmap mit <strong style="color:var(--text)">über 40 Initiativen</strong>
-          über Enterprise-Datenplattformen hinweg — von Governance-Frameworks über Datenqualitäts-Kampagnen und Analysen
+          über <strong style="color:var(--text)">Airbus</strong>-Enterprise-Datenplattformen hinweg — von Governance-Frameworks über Datenqualitäts-Kampagnen und Analysen
           bis zu Monitoring-Dashboards und Team-Enablement.
         </p>
         <div class="tags">
@@ -556,7 +562,7 @@
       <div class="proj reveal">
         <div class="proj-top">
           <div>
-            <h3>AI Enablement &amp; Training</h3>
+            <h3>KI-Enablement &amp; Training</h3>
             <div class="proj-role">AI Accelerator · Umfeld CIMPA / Sopra Steria &amp; Airbus</div>
           </div>
         </div>
@@ -576,7 +582,7 @@
 
       <div class="proj reveal">
         <div class="proj-top">
-          <div><h3>AI-Powered Digital Product Passport</h3><div class="proj-role">Konzept &amp; Demo · Automotive / Fertigung</div></div>
+          <div><h3>KI-gestützter Digital Product Passport</h3><div class="proj-role">Konzept &amp; Demo · Automotive / Fertigung</div></div>
         </div>
         <p>
           Plattformkonzept für einen Digital Product Passport im Einklang mit der EU-Batterieverordnung — eine
@@ -590,7 +596,7 @@
 
       <div class="proj reveal">
         <div class="proj-top">
-          <div><h3>RAG AI Assistant</h3><div class="proj-role">Privatprojekt · Open Source</div></div>
+          <div><h3>RAG-KI-Assistent</h3><div class="proj-role">Privatprojekt · Open Source</div></div>
           <a class="proj-link" href="https://github.com/CrisVillatoro/AI_asisstant" target="_blank" rel="noopener">Code →</a>
         </div>
         <p>
@@ -604,7 +610,7 @@
 
       <div class="proj reveal">
         <div class="proj-top">
-          <div><h3>Data Engineering Foundations</h3><div class="proj-role">Privatprojekte · Open Source</div></div>
+          <div><h3>Data-Engineering-Grundlagen</h3><div class="proj-role">Privatprojekte · Open Source</div></div>
           <a class="proj-link" href="https://github.com/CrisVillatoro" target="_blank" rel="noopener">GitHub →</a>
         </div>
         <p>
@@ -756,7 +762,7 @@
 <div class="modal-overlay" id="gov-modal" role="dialog" aria-modal="true" aria-labelledby="gov-modal-title">
   <div class="modal">
     <div class="modal-head">
-      <h3 id="gov-modal-title">Enterprise Data Governance Portfolio</h3>
+      <h3 id="gov-modal-title">Enterprise-Data-Governance-Portfolio</h3>
       <button class="modal-close" id="close-gov-modal" aria-label="Close">&#10005;</button>
     </div>
     <div class="modal-sub">Portfolio-Verantwortliche · Airbus / CIMPA · laufend</div>
@@ -903,13 +909,13 @@
   /* ---------- scripted assistant demo ---------- */
   const QA = [
     { q: 'Was macht Crista?', kw: ['was macht', 'arbeit', 'rolle', 'job', 'wer', 'beruf', 'tätig'],
-      a: "Crista ist <strong>Data & AI Consultant in Berlin</strong>. Sie verantwortet ein Data-Governance-Portfolio mit über 40 Initiativen in einem Enterprise-Umfeld der Luftfahrt und baut als nominierte <strong>AI Accelerator</strong> RAG-Systeme, Multi-Agenten-Workflows und KI-Prototypen.",
+      a: "Crista ist <strong>Data & AI Consultant in Berlin</strong>. Sie verantwortet ein Data-Governance-Portfolio mit über 40 Initiativen für <strong>Airbus</strong> (über CIMPA, ein Unternehmen von Sopra Steria) und baut als nominierte <strong>AI Accelerator</strong> RAG-Systeme, Multi-Agenten-Workflows und KI-Prototypen.",
       srcs: [['Über mich', '#about'], ['Erfahrung', '#experience']] },
-    { q: 'Erzähl mir von ihren KI-Projekten', kw: ['projekt', 'raidar', 'rag', 'agent', 'baut', 'poc', 'prototyp', 'passport', 'ki-projekt'],
+    { q: 'Welche KI-Projekte hat sie gebaut?', kw: ['projekt', 'raidar', 'rag', 'agent', 'baut', 'poc', 'prototyp', 'passport', 'ki-projekt'],
       a: "Ihr Flaggschiff ist <strong>RaiDAR</strong> — ein KI-gestützter Plattformkatalog mit hybridem Retrieval (lexikalisch, vektorbasiert und graphbasiert) und quellenbelegten Antworten. Dazu kommen ein KI-gestützter Digital Product Passport und Open-Source-RAG-Demos.",
       srcs: [['Projekte', '#projects'], ['GitHub', 'https://github.com/CrisVillatoro']] },
-    { q: 'Was ist mit Data Governance?', kw: ['governance', 'qualität', 'dashboard', 'roadmap', 'initiative'],
-      a: "Das ist ihr zentrales Enterprise-Projekt: <strong>End-to-end-Verantwortung für über 40 Governance-Initiativen</strong> in sechs Arbeitsfeldern — Frameworks, Datenqualität, Analyse, Dashboards, Front-end-Tools und Adoption. Details über „Alle Details“ auf der Governance-Karte.",
+    { q: 'Was macht sie in der Data Governance?', kw: ['governance', 'qualität', 'dashboard', 'roadmap', 'initiative'],
+      a: "Das ist ihr zentrales Enterprise-Projekt — Data Governance für <strong>Airbus</strong>, umgesetzt über CIMPA: <strong>End-to-end-Verantwortung für über 40 Governance-Initiativen</strong> in sechs Arbeitsfeldern — Frameworks, Datenqualität, Analyse, Dashboards, Front-end-Tools und Adoption. Details über „Alle Details“ auf der Governance-Karte.",
       srcs: [['Governance-Portfolio', '#projects']] },
     { q: 'Wie kam sie zur KI?', kw: ['weg', 'hintergrund', 'karriere', 'chemie', 'wie kam', 'quereinstieg', 'werdegang'],
       a: "Chemieingenieurwesen → Umweltingenieurwesen → internationale Beratung → Data-Science-Bootcamp → Senior Data Analyst → AI Consultant. Sie betrachtet jedes Problem als System: <strong>messen, modellieren, verbessern</strong>.",
