@@ -403,6 +403,47 @@
   .skills-grid > .skill-card:nth-child(4) { border-top-color: #ec4899; }
   .chat-card { border-top: 2px solid #f59e0b; }
 
+  /* ---------- SPARK modal ---------- */
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 22px; }
+  .flow span {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px;
+    padding: 5px 10px; border-radius: 6px; background: var(--card); border: 1px solid var(--border);
+    color: var(--text-dim); white-space: nowrap;
+  }
+  .flow span b { color: var(--accent); font-weight: 600; }
+  .cluster { margin-bottom: 16px; }
+  .cluster > .c-name {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 7px;
+  }
+  .agents { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  @media (max-width: 620px) { .agents { grid-template-columns: 1fr; } }
+  .agent {
+    background: var(--card); border: 1px solid var(--border); border-radius: 9px;
+    padding: 9px 12px; border-left: 3px solid var(--accent-2);
+  }
+  .agent .n {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px;
+    color: var(--text); font-weight: 600;
+  }
+  .agent .n em { font-style: normal; font-size: 10.5px; color: var(--text-faint); margin-left: 6px; }
+  .agent .j { font-size: 12.5px; color: var(--text-dim); }
+  .cl-a .agent { border-left-color: #f59e0b; }
+  .cl-b .agent { border-left-color: #6366f1; }
+  .cl-c .agent { border-left-color: #14b8a6; }
+  .cl-d .agent { border-left-color: #ec4899; }
+  .human {
+    background: rgba(245,158,11,.07); border: 1px solid rgba(245,158,11,.3);
+    border-radius: 9px; padding: 10px 13px; margin-bottom: 16px;
+  }
+  .human .n { color: var(--accent); font-weight: 700; font-size: 13.5px; }
+  .human .j { font-size: 12.5px; color: var(--text-dim); }
+  .cycle {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0 14px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--accent-3);
+  }
+  .cycle span { padding: 4px 10px; border: 1px solid rgba(20,184,166,.3); border-radius: 999px; background: rgba(20,184,166,.06); }
+
   /* ---------- reveal animation ---------- */
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.on { opacity: 1; transform: none; }
@@ -550,6 +591,7 @@
             <h3>SPARK — Equipo de entrega multiagente</h3>
             <div class="proj-role">Creadora y líder del equipo · desde 2026</div>
           </div>
+          <button class="proj-link" type="button" id="open-spark-modal">Equipo y proceso →</button>
         </div>
         <p>
           Construí <strong style="color:var(--text)">SPARK</strong>: once agentes de IA especializados que funcionan como un
@@ -885,6 +927,90 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="spark-modal" role="dialog" aria-modal="true" aria-labelledby="spark-modal-title">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="spark-modal-title">SPARK — equipo y proceso</h3>
+      <button class="modal-close" id="close-spark-modal" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="modal-sub">Creadora y líder del equipo · diseño vivo</div>
+    <p class="intro">
+      SPARK es un equipo de agentes de IA especializados que funciona como un equipo real de desarrollo y consultoría.
+      A partir de una idea produce una solución completa — propuesta, especificación, diseño, desarrollo, seguridad y
+      pruebas, despliegue — con una persona dirigiendo el trabajo. <strong>Cada agente tiene una única función y límites
+      explícitos</strong>, y entrega un resultado limpio y estructurado al siguiente. Ningún agente lo hace todo: esa
+      separación es lo que hace el trabajo fiable, revisable y reutilizable.
+    </p>
+
+    <div class="m-area" style="border-top:none;padding-top:0">
+      <h4><span class="dot" style="background:#f59e0b"></span>Cómo fluye un proyecto</h4>
+    </div>
+    <div class="flow">
+      <span><b>01</b> Recepción</span><span><b>02</b> Solución</span><span><b>03</b> Especificación</span>
+      <span><b>04</b> Arquitectura</span><span><b>05</b> Diseño</span><span><b>06</b> Desarrollo</span>
+      <span><b>07</b> Seguridad y QA</span><span><b>08</b> Despliegue</span><span><b>09</b> Entrega</span>
+    </div>
+
+    <div class="m-area">
+      <h4><span class="dot" style="background:#6366f1"></span>El equipo — 11 especialistas</h4>
+    </div>
+    <div class="human">
+      <div class="n">Crista Villatoro-Müller — SPARK Team Lead <em>humana</em></div>
+      <div class="j">Marca la dirección, aprueba cada entrega y responde por el resultado.</div>
+    </div>
+
+    <div class="cluster cl-a">
+      <div class="c-name">Dirección y especificación</div>
+      <div class="agents">
+        <div class="agent"><div class="n">product-manager <em>Opus</em></div><div class="j">Especificaciones y delegación</div></div>
+        <div class="agent"><div class="n">solutions-architect <em>Opus</em></div><div class="j">Forma de la solución</div></div>
+      </div>
+    </div>
+
+    <div class="cluster cl-b">
+      <div class="c-name">Ingeniería</div>
+      <div class="agents">
+        <div class="agent"><div class="n">data-architect <em>Opus</em></div><div class="j">Datos y grounding</div></div>
+        <div class="agent"><div class="n">ai-engineer <em>Opus</em></div><div class="j">Modelos · RAG · prompts</div></div>
+        <div class="agent"><div class="n">backend-dev <em>Sonnet</em></div><div class="j">APIs y grafo de agentes</div></div>
+        <div class="agent"><div class="n">frontend-dev <em>Sonnet</em></div><div class="j">UI y superficie de demo</div></div>
+        <div class="agent"><div class="n">devops-engineer <em>Sonnet</em></div><div class="j">Despliegue · IaC · CI/CD</div></div>
+      </div>
+    </div>
+
+    <div class="cluster cl-c">
+      <div class="c-name">Diseño y comunicación</div>
+      <div class="agents">
+        <div class="agent"><div class="n">design-lead <em>Opus</em></div><div class="j">UX · sistema de diseño</div></div>
+        <div class="agent"><div class="n">copywriter <em>Sonnet</em></div><div class="j">Textos · one-pagers</div></div>
+      </div>
+    </div>
+
+    <div class="cluster cl-d">
+      <div class="c-name">Calidad y seguridad</div>
+      <div class="agents">
+        <div class="agent"><div class="n">qa-engineer <em>Sonnet</em></div><div class="j">Tests y evaluaciones de LLM</div></div>
+        <div class="agent"><div class="n">security-auditor <em>Opus</em></div><div class="j">OWASP · aprobación</div></div>
+      </div>
+    </div>
+    <p class="m-note" style="margin-top:4px">Modelos de criterio senior para las decisiones de diseño y modelos rápidos para la ejecución — capacidad ajustada a la tarea y a su coste.</p>
+
+    <div class="m-area">
+      <h4><span class="dot" style="background:#14b8a6"></span>Cómo trabaja el equipo — fases y puntos de control</h4>
+      <p>Cada agente trabaja en fases separadas y espera una aprobación explícita antes de que empiece la siguiente
+      estación. No se gasta nada en trabajo que no se haya confirmado.</p>
+    </div>
+    <div class="cycle"><span>producir</span><span>presentar</span><span>pausar</span><span>continuar</span></div>
+    <div class="m-area">
+      <h4><span class="dot" style="background:#ec4899"></span>Comportamiento en los puntos de control</h4>
+      <p>Al terminar su entregable, cada agente resume lo que produjo, indica qué estación viene después, pide
+      aprobación explícita — y se detiene. El solutions architect va más allá: siempre presenta un
+      <strong>informe de dos opciones con una compensación honesta por cada una</strong> antes de escribir una propuesta
+      completa. El silencio o la ambigüedad nunca se toman como aprobación.</p>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="wrap">© <span id="yr"></span> Crista Villatoro · Berlín · Built with care (and a bit of AI)</div>
 </footer>
@@ -905,6 +1031,15 @@
   const closeGovModal = () => { govModal.classList.remove('open'); document.body.style.overflow = ''; };
   document.getElementById('close-gov-modal').addEventListener('click', closeGovModal);
   govModal.addEventListener('click', (e) => { if (e.target === govModal) closeGovModal(); });
+  const sparkModal = document.getElementById('spark-modal');
+  document.getElementById('open-spark-modal').addEventListener('click', () => {
+    sparkModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  const closeSparkModal = () => { sparkModal.classList.remove('open'); document.body.style.overflow = ''; };
+  document.getElementById('close-spark-modal').addEventListener('click', closeSparkModal);
+  sparkModal.addEventListener('click', (e) => { if (e.target === sparkModal) closeSparkModal(); });
+
   const howModal = document.getElementById('how-modal');
   document.getElementById('open-how-modal').addEventListener('click', () => {
     howModal.classList.add('open');
@@ -913,7 +1048,7 @@
   const closeHowModal = () => { howModal.classList.remove('open'); document.body.style.overflow = ''; };
   document.getElementById('close-how-modal').addEventListener('click', closeHowModal);
   howModal.addEventListener('click', (e) => { if (e.target === howModal) closeHowModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeGovModal(); closeHowModal(); } });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeGovModal(); closeHowModal(); closeSparkModal(); } });
 
   /* ---------- typewriter ---------- */
   const phrases = ['sistemas agénticos.', 'asistentes RAG.', 'IA que los equipos adoptan.', 'cimientos de datos sólidos.', 'prototipos que funcionan — rápido.'];
