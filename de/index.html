@@ -444,6 +444,62 @@
   }
   .cycle span { padding: 4px 10px; border: 1px solid rgba(20,184,166,.3); border-radius: 999px; background: rgba(20,184,166,.06); }
 
+  /* ---------- SPARK org chart (original design) ---------- */
+  .org { margin: 6px 0 4px; }
+  .crista {
+    max-width: 420px; margin: 0 auto 8px; text-align: center; padding: 14px; border-radius: 14px;
+    background: linear-gradient(180deg, rgba(124,140,255,.18), rgba(124,140,255,.05));
+    border: 1px solid rgba(124,140,255,.35);
+  }
+  .crista b { font-size: 16px; color: var(--text); }
+  .crista span { display: block; color: #b7c0d4; font-size: 12px; font-family: ui-monospace, monospace; margin-top: 2px; }
+  .cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 460px) { .cols { grid-template-columns: 1fr; } }
+  .clh {
+    font-size: 12px; font-weight: 700; letter-spacing: .04em; padding: 8px 12px;
+    border-radius: 10px; color: #0a0e17; margin-bottom: 10px;
+  }
+  .ocard {
+    padding: 11px 12px; margin-bottom: 9px; border-radius: 11px;
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
+    border-left: 3px solid var(--a); cursor: pointer; transition: transform .08s, background .15s;
+  }
+  .ocard:hover { background: rgba(255,255,255,.08); transform: translateY(-1px); }
+  .ocard:focus { outline: 2px solid #7c8cff88; outline-offset: 2px; }
+  .ocard .nm { font-family: ui-monospace, monospace; font-size: 12.5px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .ocard .sp { color: #8b96ab; font-size: 11px; margin-top: 4px; }
+  .cue { display: block; margin-top: 6px; font-size: 10px; font-family: ui-monospace, monospace; color: var(--a); font-weight: 600; letter-spacing: .02em; opacity: .9; }
+  .sbadge { font-size: 9.5px; font-weight: 700; font-family: ui-monospace, monospace; border-radius: 6px; padding: 1px 6px; color: #0a0e17; }
+  .b-opus { background: #f59e0b; }
+  .b-son  { background: #7c8cff; }
+  .sdot { width: 7px; height: 7px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d39988; display: inline-block; }
+
+  /* agent detail panel */
+  .agent-overlay {
+    position: fixed; inset: 0; z-index: 120; background: rgba(4,7,12,.82); backdrop-filter: blur(6px);
+    display: none; align-items: center; justify-content: center; padding: 24px;
+  }
+  .agent-overlay.open { display: flex; }
+  .agent-modal {
+    background: var(--bg-soft); border: 1px solid var(--border); border-radius: 16px;
+    max-width: 560px; width: 100%; max-height: 86vh; overflow-y: auto; padding: 26px 28px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6);
+  }
+  .agent-modal h3 { font-family: ui-monospace, monospace; font-size: 17px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .agent-modal .cl { font-size: 12px; font-family: ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase; margin: 6px 0 16px; }
+  .agent-modal .row { padding: 11px 0; border-top: 1px solid var(--border); }
+  .agent-modal .lab {
+    font-family: ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px;
+  }
+  .agent-modal .val { font-size: 14.5px; color: var(--text-dim); }
+  .agent-modal .val b { color: var(--accent-3); font-size: 12.5px; }
+  .agent-modal code {
+    font-family: ui-monospace, monospace; font-size: 11.5px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; margin: 0 5px 5px 0; display: inline-block; color: var(--text-dim);
+  }
+
   /* ---------- reveal animation ---------- */
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.on { opacity: 1; transform: none; }
@@ -952,48 +1008,37 @@
     </div>
 
     <div class="m-area">
-      <h4><span class="dot" style="background:#6366f1"></span>Das Team — 11 Spezialisten</h4>
+      <h4><span class="dot" style="background:#6366f1"></span>The team — 11 specialists</h4>
     </div>
-    <div class="human">
-      <div class="n">Crista Villatoro-Müller — SPARK Team Lead <em>Mensch</em></div>
-      <div class="j">Gibt die Richtung vor, gibt jede Übergabe frei, verantwortet das Ergebnis.</div>
-    </div>
-
-    <div class="cluster cl-a">
-      <div class="c-name">Direction &amp; Spec</div>
-      <div class="agents">
-        <div class="agent"><div class="n">product-manager <em>Opus</em></div><div class="j">Spezifikationen &amp; Delegation</div></div>
-        <div class="agent"><div class="n">solutions-architect <em>Opus</em></div><div class="j">Lösungsdesign</div></div>
+    <div class="org">
+      <div class="crista"><b>Crista Villatoro</b><span>SPARK Team Lead · Mensch</span></div>
+      <div class="cols">
+        <div>
+          <div class="clh" style="background:#7c8cff">Direction &amp; Spec</div>
+          <div class="ocard" style="--a:#7c8cff" tabindex="0" role="button" data-agent="product-manager"><div class="nm">product-manager <span class="sbadge b-opus">Opus</span> <span class="sdot"></span></div><div class="sp">Spezifikationen &amp; Delegation</div><div class="cue">Details anzeigen ›</div></div>
+          <div class="ocard" style="--a:#7c8cff" tabindex="0" role="button" data-agent="solutions-architect"><div class="nm">solutions-architect <span class="sbadge b-opus">Opus</span> <span class="sdot"></span></div><div class="sp">Lösungsdesign</div><div class="cue">Details anzeigen ›</div></div>
+        </div>
+        <div>
+          <div class="clh" style="background:#f59e0b">Engineering</div>
+          <div class="ocard" style="--a:#f59e0b" tabindex="0" role="button" data-agent="data-architect"><div class="nm">data-architect <span class="sbadge b-opus">Opus</span> <span class="sdot"></span></div><div class="sp">Daten &amp; Grounding</div><div class="cue">Details anzeigen ›</div></div>
+          <div class="ocard" style="--a:#f59e0b" tabindex="0" role="button" data-agent="ai-engineer"><div class="nm">ai-engineer <span class="sbadge b-opus">Opus</span> <span class="sdot"></span></div><div class="sp">Modelle · RAG · Prompts</div><div class="cue">Details anzeigen ›</div></div>
+          <div class="ocard" style="--a:#f59e0b" tabindex="0" role="button" data-agent="backend-dev"><div class="nm">backend-dev <span class="sbadge b-son">Sonnet</span> <span class="sdot"></span></div><div class="sp">APIs &amp; Agent-Graph</div><div class="cue">Details anzeigen ›</div></div>
+          <div class="ocard" style="--a:#f59e0b" tabindex="0" role="button" data-agent="frontend-dev"><div class="nm">frontend-dev <span class="sbadge b-son">Sonnet</span> <span class="sdot"></span></div><div class="sp">UI &amp; Demo-Oberfläche</div><div class="cue">Details anzeigen ›</div></div>
+          <div class="ocard" style="--a:#f59e0b" tabindex="0" role="button" data-agent="devops-engineer"><div class="nm">devops-engineer <span class="sbadge b-son">Sonnet</span> <span class="sdot"></span></div><div class="sp">Deployment · IaC · CI/CD</div><div class="cue">Details anzeigen ›</div></div>
+        </div>
+        <div>
+          <div class="clh" style="background:#ec4899">Craft &amp; Comms</div>
+          <div class="ocard" style="--a:#ec4899" tabindex="0" role="button" data-agent="design-lead"><div class="nm">design-lead <span class="sbadge b-opus">Opus</span> <span class="sdot"></span></div><div class="sp">UX · Design-System</div><div class="cue">Details anzeigen ›</div></div>
+          <div class="ocard" style="--a:#ec4899" tabindex="0" role="button" data-agent="copywriter"><div class="nm">copywriter <span class="sbadge b-son">Sonnet</span> <span class="sdot"></span></div><div class="sp">Texte · One-Pager</div><div class="cue">Details anzeigen ›</div></div>
+        </div>
+        <div>
+          <div class="clh" style="background:#2dd4bf">Quality &amp; Safety</div>
+          <div class="ocard" style="--a:#2dd4bf" tabindex="0" role="button" data-agent="qa-engineer"><div class="nm">qa-engineer <span class="sbadge b-son">Sonnet</span> <span class="sdot"></span></div><div class="sp">Tests &amp; LLM-Evals</div><div class="cue">Details anzeigen ›</div></div>
+          <div class="ocard" style="--a:#2dd4bf" tabindex="0" role="button" data-agent="security-auditor"><div class="nm">security-auditor <span class="sbadge b-opus">Opus</span> <span class="sdot"></span></div><div class="sp">OWASP · Freigabe</div><div class="cue">Details anzeigen ›</div></div>
+        </div>
       </div>
     </div>
-
-    <div class="cluster cl-b">
-      <div class="c-name">Engineering</div>
-      <div class="agents">
-        <div class="agent"><div class="n">data-architect <em>Opus</em></div><div class="j">Daten &amp; Grounding</div></div>
-        <div class="agent"><div class="n">ai-engineer <em>Opus</em></div><div class="j">Modelle · RAG · Prompts</div></div>
-        <div class="agent"><div class="n">backend-dev <em>Sonnet</em></div><div class="j">APIs &amp; Agent-Graph</div></div>
-        <div class="agent"><div class="n">frontend-dev <em>Sonnet</em></div><div class="j">UI &amp; Demo-Oberfläche</div></div>
-        <div class="agent"><div class="n">devops-engineer <em>Sonnet</em></div><div class="j">Deployment · IaC · CI/CD</div></div>
-      </div>
-    </div>
-
-    <div class="cluster cl-c">
-      <div class="c-name">Craft &amp; Comms</div>
-      <div class="agents">
-        <div class="agent"><div class="n">design-lead <em>Opus</em></div><div class="j">UX · Design-System</div></div>
-        <div class="agent"><div class="n">copywriter <em>Sonnet</em></div><div class="j">Texte · One-Pager</div></div>
-      </div>
-    </div>
-
-    <div class="cluster cl-d">
-      <div class="c-name">Quality &amp; Safety</div>
-      <div class="agents">
-        <div class="agent"><div class="n">qa-engineer <em>Sonnet</em></div><div class="j">Tests &amp; LLM-Evals</div></div>
-        <div class="agent"><div class="n">security-auditor <em>Opus</em></div><div class="j">OWASP · Freigabe</div></div>
-      </div>
-    </div>
-    <p class="m-note" style="margin-top:4px">Starke Modelle für Design-Entscheidungen, schnelle Modelle für die Umsetzung — Fähigkeit passend zur Aufgabe und zu ihren Kosten.</p>
+    <p class="m-note" style="margin-top:12px"><span class="sbadge b-opus">Opus</span> starkes Urteil · <span class="sbadge b-son">Sonnet</span> schneller Worker — starke Modelle für Design-Entscheidungen, schnelle für die Umsetzung: Fähigkeit passend zur Aufgabe und zu ihren Kosten.</p>
 
     <div class="m-area">
       <h4><span class="dot" style="background:#14b8a6"></span>So arbeitet das Team — Phasen &amp; Freigaben</h4>
@@ -1008,6 +1053,19 @@
       <strong>Zwei-Optionen-Vergleich mit je einem ehrlichen Trade-off</strong> vor, bevor ein vollständiges Angebot
       geschrieben wird. Schweigen oder Unklarheit gilt nie als Zustimmung.</p>
     </div>
+  </div>
+</div>
+
+<div class="agent-overlay" id="agent-overlay">
+  <div class="agent-modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h3><span id="ag-name"></span><span class="sbadge" id="ag-badge"></span><span class="sdot"></span></h3>
+      <button class="modal-close" id="close-agent" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="cl" id="ag-cluster"></div>
+    <div class="row"><div class="lab" id="lab-does">Was er tut</div><div class="val" id="ag-desc"></div></div>
+    <div class="row"><div class="lab" id="lab-lane">Bleibt in seiner Spur</div><div class="val" id="ag-bnd"></div></div>
+    <div class="row"><div class="lab" id="lab-tools">Werkzeuge</div><div class="val" id="ag-tools"></div></div>
   </div>
 </div>
 
@@ -1031,6 +1089,31 @@
   const closeGovModal = () => { govModal.classList.remove('open'); document.body.style.overflow = ''; };
   document.getElementById('close-gov-modal').addEventListener('click', closeGovModal);
   govModal.addEventListener('click', (e) => { if (e.target === govModal) closeGovModal(); });
+  const AGENTS = {"product-manager": {"name": "product-manager", "model": "Opus", "cluster": "Direction & Spec", "acc": "#7c8cff", "desc": "Turns a client ask into a scoped POC and a build-ready spec; assigns each piece to a named agent.", "boundary": "Writes specs, never code.", "tools": "Read, Write, Grep, Glob"}, "solutions-architect": {"name": "solutions-architect", "model": "Opus", "cluster": "Direction & Spec", "acc": "#7c8cff", "desc": "Turns a client problem into a solution shape and technical proposal — platforms, value, risks, “why CIMPA.” <b style='color:#34d399;font-size:11px;font-weight:600'>Two-phase: options brief first, full proposal after your choice.</b>", "boundary": "Solution & proposals; hands specs to product-manager.", "tools": "Read, Write, Grep, Glob"}, "data-architect": {"name": "data-architect", "model": "Opus", "cluster": "Engineering", "acc": "#f59e0b", "desc": "Owns the shape of the data — schemas, migrations, the retrieval/grounding layer that keeps AI answers traceable.", "boundary": "Designs data + migrations; hands endpoints to backend-dev.", "tools": "Read, Write, Edit, Bash, Grep, Glob"}, "ai-engineer": {"name": "ai-engineer", "model": "Opus", "cluster": "Engineering", "acc": "#f59e0b", "desc": "Designs the AI layer — models, RAG/retrieval, injection-resistant prompts, and the evaluation strategy.", "boundary": "Defines the AI contract; not app code, schema, or UI.", "tools": "Read, Write, Edit, Bash, Grep, Glob"}, "backend-dev": {"name": "backend-dev", "model": "Sonnet", "cluster": "Engineering", "acc": "#f59e0b", "desc": "Builds the service layer — APIs, the agent graph, integrations — turning specs and schema into tested code.", "boundary": "Backend only; UI to frontend-dev, schema to data-architect.", "tools": "Read, Write, Edit, Bash, Grep, Glob"}, "frontend-dev": {"name": "frontend-dev", "model": "Sonnet", "cluster": "Engineering", "acc": "#f59e0b", "desc": "Builds the interfaces clients see and click, to an enterprise quality bar.", "boundary": "UI only; logic to backend-dev, copy to copywriter.", "tools": "Read, Write, Edit, Bash, Grep, Glob"}, "devops-engineer": {"name": "devops-engineer", "model": "Sonnet", "cluster": "Engineering", "acc": "#f59e0b", "desc": "Takes a tested build to a running, monitored environment — CI/CD, containers, cloud infra, observability.", "boundary": "Builds & operates infra; security-auditor audits its config.", "tools": "Read, Write, Edit, Bash, Grep, Glob"}, "design-lead": {"name": "design-lead", "model": "Opus", "cluster": "Craft & Comms", "acc": "#ec4899", "desc": "Turns a spec into wireframes, tokens, and an annotated handoff brief the frontend-dev builds without guessing.", "boundary": "UX & design system; not product, code, or copy.", "tools": "Read, Write, Grep, Glob"}, "copywriter": {"name": "copywriter", "model": "Sonnet", "cluster": "Craft & Comms", "acc": "#ec4899", "desc": "The product’s voice — UI strings, proposal copy, one-pagers. Grounded in source, no fluff.", "boundary": "Words only; no code, docs, or art-direction.", "tools": "Read, Write"}, "qa-engineer": {"name": "qa-engineer", "model": "Sonnet", "cluster": "Quality & Safety", "acc": "#2dd4bf", "desc": "Proves the work is correct and honest — tests plus AI eval harnesses. Reports faults; never fixes them.", "boundary": "Writes tests & audits; doesn’t write feature code.", "tools": "Read, Write, Bash, Grep, Glob"}, "security-auditor": {"name": "security-auditor", "model": "Opus", "cluster": "Quality & Safety", "acc": "#2dd4bf", "desc": "Reviews the whole build before delivery — OWASP, auth, CVEs, secrets — and blocks any Critical/High finding.", "boundary": "Reviews & reports; never fixes; blocks unsafe delivery.", "tools": "Read, Write, Bash, Grep, Glob"}};
+  const agentOverlay = document.getElementById('agent-overlay');
+  function openAgent(key) {
+    const a = AGENTS[key]; if (!a) return;
+    document.getElementById('ag-name').textContent = a.name;
+    const badge = document.getElementById('ag-badge');
+    badge.className = 'sbadge ' + (a.model === 'Opus' ? 'b-opus' : 'b-son');
+    badge.textContent = a.model;
+    const cl = document.getElementById('ag-cluster');
+    cl.textContent = a.cluster; cl.style.color = a.acc;
+    document.getElementById('ag-desc').innerHTML = a.desc;
+    document.getElementById('ag-bnd').textContent = a.boundary;
+    document.getElementById('ag-tools').innerHTML = a.tools.split(', ').map(t => '<code>' + t + '</code>').join('');
+    agentOverlay.classList.add('open');
+  }
+  const closeAgent = () => agentOverlay.classList.remove('open');
+  document.getElementById('close-agent').addEventListener('click', closeAgent);
+  agentOverlay.addEventListener('click', (e) => { if (e.target === agentOverlay) closeAgent(); });
+  document.querySelectorAll('.ocard[data-agent]').forEach(card => {
+    card.addEventListener('click', () => openAgent(card.dataset.agent));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAgent(card.dataset.agent); }
+    });
+  });
+
   const sparkModal = document.getElementById('spark-modal');
   document.getElementById('open-spark-modal').addEventListener('click', () => {
     sparkModal.classList.add('open');
@@ -1048,7 +1131,7 @@
   const closeHowModal = () => { howModal.classList.remove('open'); document.body.style.overflow = ''; };
   document.getElementById('close-how-modal').addEventListener('click', closeHowModal);
   howModal.addEventListener('click', (e) => { if (e.target === howModal) closeHowModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeGovModal(); closeHowModal(); closeSparkModal(); } });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (agentOverlay.classList.contains('open')) { closeAgent(); return; } closeGovModal(); closeHowModal(); closeSparkModal(); } });
 
   /* ---------- typewriter ---------- */
   const phrases = ['agentische Systeme.', 'RAG-Assistenten.', 'KI, die Teams wirklich nutzen.', 'solide Datenfundamente.', 'funktionierende Prototypen — schnell.'];
