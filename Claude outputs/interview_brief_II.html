@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Interview Brief II — Capgemini AI Solutions Architect Defense</title>
+<!--
+  BEARBEITEN / TO EDIT: Text zwischen den Tags ändern.
+  PDF: in Chrome öffnen, Cmd+P, "Als PDF sichern", Hintergrundgrafiken anhaken.
+-->
+<style>
+  :root {
+    --ink: #0f172a; --ink-soft: #334155; --ink-mute: #64748b; --rule: #e2e8f0; --rule-soft: #eef2f7;
+    --amber: #b45309; --indigo: #4338ca; --teal: #0f766e; --green: #15803d; --rose: #9f1239;
+    --wash: #f8fafc;
+  }
+  @page { size: A4; margin: 13mm 15mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #eef1f6; color: var(--ink-soft);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 9.6pt; line-height: 1.5; letter-spacing: -.005em; -webkit-font-smoothing: antialiased;
+  }
+  .sheet { width: 210mm; margin: 10mm auto; background: #fff; box-shadow: 0 6px 30px rgba(15,23,42,.13); }
+  .topbar { display: flex; height: 5px; }
+  .topbar span { flex: 1; }
+  .topbar span:nth-child(1){ background: var(--amber); }
+  .topbar span:nth-child(2){ background: var(--indigo); }
+  .topbar span:nth-child(3){ background: var(--teal); }
+  .topbar span:nth-child(4){ background: var(--green); }
+  .inner { padding: 12mm 15mm 14mm; }
+
+  header { border-bottom: 1px solid var(--rule); padding-bottom: 5mm; margin-bottom: 6mm; }
+  .kicker { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7.6pt;
+            letter-spacing: .2em; text-transform: uppercase; color: var(--amber); font-weight: 600; margin-bottom: 5px; }
+  h1 { font-size: 18pt; font-weight: 800; letter-spacing: -.025em; color: var(--ink); line-height: 1.15; }
+  .sub { margin-top: 6px; font-size: 9.4pt; color: var(--ink-mute); }
+
+  h2 { font-size: 12.5pt; font-weight: 750; color: var(--ink); letter-spacing: -.02em;
+       margin: 9mm 0 3.5mm; padding-top: 3.5mm; border-top: 2px solid var(--ink); }
+  h2:first-of-type { margin-top: 0; }
+  h2 .num { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8.5pt;
+            color: var(--amber); margin-right: 8px; font-weight: 600; }
+  h3 { font-size: 10.4pt; font-weight: 700; color: var(--ink); margin: 6mm 0 2mm; letter-spacing: -.01em; }
+  h4 { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7.6pt; letter-spacing: .16em;
+       text-transform: uppercase; color: var(--ink-mute); font-weight: 600; margin: 4.5mm 0 1.8mm; }
+  p { margin-bottom: 2.6mm; }
+  ul { list-style: none; margin: 0 0 3mm 0; }
+  li { position: relative; padding-left: 13px; margin-bottom: 1.7mm; }
+  li::before { content: ""; position: absolute; left: 0; top: 6.5px; width: 4px; height: 4px;
+               border-radius: 50%; background: var(--indigo); }
+  .lead { color: var(--ink); }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 8mm; }
+
+  .box { background: var(--wash); border: 1px solid var(--rule); border-left: 3px solid var(--indigo);
+         padding: 3.5mm 4.5mm; margin: 3mm 0 4mm; border-radius: 0 3px 3px 0; }
+  .box.amber { border-left-color: var(--amber); }
+  .box.rose  { border-left-color: var(--rose); }
+  .box.teal  { border-left-color: var(--teal); }
+  .box.green { border-left-color: var(--green); }
+  .box p:last-child, .box ul:last-child { margin-bottom: 0; }
+
+  /* Sprechblock: Deutsch oben, Englisch darunter */
+  .say { background: #fff; border: 1px solid var(--rule); border-left: 3px solid var(--teal);
+         padding: 3.5mm 4.5mm; margin: 2.5mm 0 4mm; border-radius: 0 3px 3px 0; page-break-inside: avoid; }
+  .say .de { color: var(--ink); font-size: 9.6pt; line-height: 1.62; }
+  .say .de p { margin-bottom: 2.4mm; }
+  .say .en { color: var(--ink-mute); font-size: 8.7pt; line-height: 1.5; font-style: italic;
+             border-top: 1px dashed var(--rule); margin-top: 3mm; padding-top: 2.6mm; }
+  .say .en p { margin-bottom: 1.8mm; }
+  .say .de p:last-child, .say .en p:last-child { margin-bottom: 0; }
+  .saylabel { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7.2pt;
+              letter-spacing: .16em; text-transform: uppercase; color: var(--teal); font-weight: 600;
+              display: block; margin-bottom: 2mm; }
+  .enlabel { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 6.8pt;
+             letter-spacing: .16em; text-transform: uppercase; color: var(--ink-mute); font-weight: 600;
+             display: block; margin-bottom: 1.5mm; font-style: normal; }
+
+  table { width: 100%; border-collapse: collapse; margin: 2.5mm 0 4mm; font-size: 9pt; }
+  th { text-align: left; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7.4pt;
+       letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); font-weight: 600;
+       border-bottom: 1px solid var(--ink); padding: 0 6px 1.8mm 0; vertical-align: bottom; }
+  td { padding: 2mm 6px 2mm 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  td:last-child, th:last-child { padding-right: 0; }
+
+  .pb { page-break-before: always; }
+  h2, h3 { page-break-after: avoid; }
+
+  .cheat h2 { border-top-color: var(--amber); }
+  .cheat li { margin-bottom: 1.3mm; }
+  .cheat { font-size: 9.2pt; }
+
+  footer { margin-top: 8mm; padding-top: 3mm; border-top: 1px solid var(--rule);
+           font-size: 8.2pt; color: var(--ink-mute); display: flex; justify-content: space-between; }
+
+  @media print {
+    body { background: #fff; font-size: 9.3pt; }
+    .sheet { margin: 0; box-shadow: none; width: auto; }
+    .inner { padding: 0; }
+    .topbar { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="topbar"><span></span><span></span><span></span><span></span></div>
+  <div class="inner">
+
+    <header>
+      <div class="kicker">Interview Brief II · Nachtrag / Addendum</div>
+      <h1>AI Solutions Architect Defense (w/m/d)<br>Capgemini Deutschland</h1>
+      <div class="sub">
+        Donnerstag, 10. September 2026, 14:00 CEST · Microsoft Teams<br>
+        Lilli Bruckschen · Franziska Rosenbaum · Referenz: Carl Hase<br>
+        Crista Villatoro-Müller
+      </div>
+    </header>
+
+    <div class="box amber">
+      <h4 style="margin-top:0">Wie dieses Dokument aufgebaut ist / How this document works</h4>
+      <p class="lead">
+        Die Erklärungen sind auf Englisch, damit du sie schnell und sicher verstehst. Jeder Satz,
+        den du im Gespräch tatsächlich sagen wirst, steht auf Deutsch in einem grünen Kasten,
+        mit der englischen Übersetzung darunter in kursiv.
+      </p>
+      <p>
+        Explanations are in English so you absorb them quickly. Every sentence you will actually
+        say is in German in a green box, with the English translation underneath in italics.
+      </p>
+    </div>
+
+    <h2><span class="num">01</span>Self-presentation, 90 seconds</h2>
+
+    <h3>What went wrong in the practice run</h3>
+    <ul>
+      <li><span class="lead">Length.</span> Four to five minutes instead of ninety seconds. In a first interview, that alone can lose the room.</li>
+      <li><span class="lead">Order.</span> You started in 2008 and worked forward. The format that works is the reverse: who you are today first, how you got there in one sentence, why you are sitting here last.</li>
+      <li><span class="lead">Missing.</span> No Defense, no Carl Hase, no numbers. Your strongest material arrived after minute three, when attention had already dropped.</li>
+      <li><span class="lead">Too much.</span> Hobbies, family, client-internal detail. None of it helps you get the role, and the client detail actively hurts you in a defence context.</li>
+    </ul>
+
+    <div class="box">
+      <h4 style="margin-top:0">The four checkpoints</h4>
+      <p class="lead">
+        Who I am · What I own · What I build · Why I am here.
+      </p>
+      <p>
+        If you lose the thread mid-answer, these four are the rungs you climb back onto.
+        Learn the structure, not the wording.
+      </p>
+    </div>
+
+    <div class="say">
+      <span class="saylabel">Selbstvorstellung · so sagst du es</span>
+      <div class="de">
+        <p>
+          Ich bin Data und AI Consultant in Berlin und arbeite seit 2023 bei CIMPA, einem Unternehmen von
+          Sopra Steria, in Airbus-Projekten. Ursprünglich komme ich aus Guatemala und bin 2015 für den Master
+          nach Deutschland gekommen. Mein Hintergrund ist Ingenieurwesen, erst Chemieingenieurwesen in
+          Guatemala, dann Umweltingenieurwesen in Lübeck. Über die Forschung bin ich zu den Daten gekommen,
+          und weil ich lieber mit Menschen und Stakeholdern arbeite als im Labor, bin ich über ein
+          Data-Science-Bootcamp in die Beratung gegangen.
+        </p>
+        <p>
+          Heute habe ich zwei Rollen. Etwa siebzig Prozent meiner Zeit verantworte ich Data Governance auf
+          den Airbus-Datenplattformen: eine Roadmap mit über vierzig Initiativen, dreißig davon umgesetzt,
+          dazu Datenqualitätskampagnen, Governance-Frameworks und Monitoring-Dashboards. Angefangen habe ich
+          in Hamburg mit der Digitalisierung operativer Prozesse im Hangar für die A321XLR.
+        </p>
+        <p>
+          Die übrige Zeit bin ich seit Januar offiziell nominierte AI Accelerator. Das heißt, ich baue selbst.
+          RaiDAR ist ein KI-gestützter Plattformkatalog, den ich von Anfang an entwickelt habe und bis heute
+          weiterentwickle, mit hybridem Retrieval und mit Quellenbelegen. SPARK ist ein Team aus elf
+          spezialisierten Agenten, das einen vollständigen Delivery-Prozess über fünfzehn Stationen abbildet,
+          mit einer expliziten menschlichen Freigabe an jeder Übergabe. Demnächst stelle ich das gruppenweit
+          vor, als erste CIMPA-Mitarbeiterin in dieser Reihe.
+        </p>
+        <p>
+          Warum ich heute hier bin: Ich arbeite seit drei Jahren in einem Umfeld, in dem Nachvollziehbarkeit,
+          Datenqualität und lange Produktlebenszyklen über den Erfolg entscheiden. Genau das sind die
+          Bedingungen, unter denen KI im Verteidigungsbereich funktionieren muss. Carl Hase hat mich auf die
+          Rolle aufmerksam gemacht und mich empfohlen.
+        </p>
+      </div>
+      <div class="en">
+        <span class="enlabel">English, if they switch</span>
+        <p>
+          I am a Data and AI Consultant based in Berlin. Since 2023 I have been with CIMPA, a Sopra Steria
+          company, working on Airbus projects. I am originally from Guatemala and came to Germany in 2015 for
+          my master's. My background is engineering, first chemical engineering in Guatemala, then
+          environmental engineering in Lübeck. I moved into data through research, and because I prefer
+          working with people and stakeholders over working in a lab, I moved into consulting via a data
+          science bootcamp.
+        </p>
+        <p>
+          I hold two roles today. About seventy percent of my time I own data governance across the Airbus
+          data platforms: a roadmap of more than forty initiatives, thirty of them delivered, plus data
+          quality campaigns, governance frameworks and monitoring dashboards. I started in Hamburg
+          digitalising operational processes in the hangar for the A321XLR.
+        </p>
+        <p>
+          The remaining time I have been a formally nominated AI Accelerator since January. That means I
+          build. RaiDAR is an AI-powered platform catalogue I developed from scratch and still develop today,
+          with hybrid retrieval and source citations. SPARK is a team of eleven specialised agents running a
+          full delivery pipeline across fifteen stations, with an explicit human approval gate at every
+          handover. I will be presenting it group-wide shortly, as the first CIMPA employee in that series.
+        </p>
+        <p>
+          Why I am here today: for three years I have worked in an environment where traceability, data
+          quality and long product lifecycles decide whether something works. Those are exactly the
+          conditions AI has to survive in defence. Carl Hase pointed me to this role and recommended me.
+        </p>
+      </div>
+    </div>
+
+    <h2 class="pb"><span class="num">02</span>Hybrid retrieval, explained</h2>
+
+    <h3>The basic idea</h3>
+    <p>
+      Retrieval means: before the language model answers anything, a search happens first. The model does not
+      invent the answer from its training. It is handed the relevant documents from your internal content and
+      formulates the answer only from those. So the quality of the answer depends almost entirely on whether
+      the search found the right passages.
+    </p>
+    <p class="lead">
+      And that is the whole point: there is no single search method that answers every kind of question well.
+      That is why hybrid, meaning several search methods running in parallel.
+    </p>
+
+    <h3>The three routes, each with its weakness</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:22%">Method</th>
+          <th style="width:39%">Strong at</th>
+          <th>Weak at</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="lead">Lexical</span><br>
+            <span style="font-size:8.4pt">Classic keyword search, technically usually BM25 over an inverted index. Matches the actual word, character by character.</span>
+          </td>
+          <td>Exact names, system designations, abbreviations, numbers, rare terms. Type "EBAM" and it finds exactly EBAM.</td>
+          <td>Paraphrases. Searching "maintain part data" will not find a page that says "manage component master data".</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="lead">Vector</span><br>
+            <span style="font-size:8.4pt">Each text chunk is turned by an embedding model into a vector, a series of numbers representing meaning. The query is embedded too, then the closest vectors are found, usually via cosine similarity.</span>
+          </td>
+          <td>Meaning rather than wording. "Maintain part data" and "manage component master data" sit close in vector space although no word matches.</td>
+          <td>Exactly what lexical is good at. With proper names, version numbers and abbreviations it returns something similar instead of the right thing. Dangerous failure mode: not nothing, but something plausible and wrong.</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="lead">Graph</span><br>
+            <span style="font-size:8.4pt">Objects stored as nodes and edges rather than blocks of text: this platform belongs to that domain, this system feeds that one, this role is accountable.</span>
+          </td>
+          <td>Relationship and multi-step questions. "Which systems are connected to Skywise", "who is accountable for the data flowing into this platform".</td>
+          <td>Not a substitute for text search. It only knows what has been modelled as a relationship.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Why hybrid, and what grounding means</h3>
+    <p>
+      The weaknesses cancel each other out. All three are queried in parallel, each returns a ranked list, and
+      those lists are merged into one. Only the merged result is passed to the model as context.
+    </p>
+    <p>
+      <span class="lead">Source citations are two things in one word.</span> First, the answer may come only
+      from the retrieved material, not from the model's general knowledge and not from the open web. In
+      English that is called grounding. Second, every statement shows which document it came from, so the
+      user can look it up. That is the difference between a tool you trust and a tool you can verify. In a
+      regulated environment only the second one counts. And when nothing suitable is found, the correct answer
+      is "I have nothing on that in the content base", not an invented answer.
+    </p>
+
+    <div class="say">
+      <span class="saylabel">Die Fassung für dreißig Sekunden</span>
+      <div class="de">
+        <p>
+          Bevor das Modell antwortet, wird gesucht, und ich nutze drei Suchwege parallel. Die lexikalische
+          Suche findet exakte Begriffe, also Systemnamen und Abkürzungen. Die vektorbasierte findet die
+          Bedeutung, also auch dann, wenn jemand die Sache anders nennt, als sie in der Dokumentation heißt.
+          Die graphbasierte beantwortet Beziehungsfragen, etwa welche Systeme an einer Plattform hängen. Die
+          Ergebnisse werden zusammengeführt und gehen als Kontext an das Modell. Die Antwort entsteht
+          ausschließlich aus diesem Material und zeigt an, aus welchem Dokument sie stammt. Wenn nichts
+          gefunden wird, sagt das System das, statt etwas zu erfinden.
+        </p>
+      </div>
+      <div class="en">
+        <span class="enlabel">English</span>
+        <p>
+          Before the model answers, a search runs, and I use three search routes in parallel. Lexical search
+          finds exact terms, so system names and abbreviations. Vector search finds meaning, so it works even
+          when someone calls a thing differently from how the documentation names it. Graph search answers
+          relationship questions, for example which systems are attached to a platform. The results are merged
+          and passed to the model as context. The answer is generated exclusively from that material and shows
+          which document it came from. If nothing is found, the system says so instead of inventing something.
+        </p>
+      </div>
+    </div>
+
+    <h3>If Lilli Bruckschen digs deeper</h3>
+
+    <table>
+      <thead><tr><th style="width:34%">Her question</th><th>What to say</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>How do you merge the three result lists?</td>
+          <td>The common method is Reciprocal Rank Fusion: it scores a hit by its position in each list rather than comparing raw scores, which are not on the same scale. Some systems weight instead, some add a reranker. <span class="lead">Answer with what you actually did.</span> If you simply weighted or concatenated, say that. With a PhD computer scientist the plain truth beats a term you cannot defend.</td>
+        </tr>
+        <tr>
+          <td>Where does the graph come from?</td>
+          <td>Do you build it from platform metadata, from an existing source, or by hand. Say what is true.</td>
+        </tr>
+        <tr>
+          <td>How do you measure whether retrieval is good?</td>
+          <td>If you have no evaluation set: so far I have worked with real user questions and manual review, a systematic evaluation set is the next step. Respectable answer, and it shows you know what is missing.</td>
+        </tr>
+        <tr>
+          <td>Why three and not two?</td>
+          <td>Because relationship questions would otherwise go unanswered. Your best argument, because it comes from the use case and not from a blog post.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box rose">
+      <h4 style="margin-top:0">The one warning that matters most</h4>
+      <p class="lead">
+        Only claim what you actually built. If one of the three routes is thin in your system, say so.
+      </p>
+      <p>
+        "Der Graph ist bisher schlank, im Wesentlichen die Beziehungen zwischen Plattformen und Domänen"
+        is a good answer. An exaggerated answer will not survive two follow-up questions with her.
+      </p>
+    </div>
+
+    <h2 class="pb"><span class="num">03</span>What Carl told you</h2>
+
+    <h3>3a. The Capgemini Public Defense page, four pillars</h3>
+    <p>
+      Their German Public Defense practice is built around four themes. These are their own words, worth
+      knowing verbatim:
+    </p>
+    <ul>
+      <li><span class="lead">Software Defined &amp; Connected Defense.</span> Their line: capability development today is no longer achieved through additional horsepower or explosive force, but above all through software. Plus 5G, open system architectures, agile methods.</li>
+      <li><span class="lead">Cloud.</span> Multi-cloud as the basis for resilient networking in the armed forces.</li>
+      <li><span class="lead">Smart Administration.</span> Data-driven decisions, removing media breaks, integrating systems end to end.</li>
+      <li><span class="lead">Digital Continuity.</span> Uninterrupted data flow across the entire product lifecycle, using digital twins and synchronised data sources.</li>
+    </ul>
+
+    <div class="box green">
+      <h4 style="margin-top:0">Pillar four is literally your job</h4>
+      <p class="lead">
+        Digital Continuity across the product lifecycle with synchronised data sources is precisely what you
+        do on the Airbus platforms, and CIMPA comes from Product Lifecycle Management. This is your strongest
+        single overlap in their whole portfolio, stronger even than the agent story.
+      </p>
+      <p>
+        Two names from that page, in case they come up: <span class="lead">Christopher Gaube</span>, Country
+        Lead Defense Germany, a former Bundeswehr officer with more than twenty years in defence. And
+        <span class="lead">Stefan Pollack</span>, Director and Delivery Executive. Gaube is quite likely the
+        person you would meet in a second round.
+      </p>
+    </div>
+
+    <div class="say">
+      <span class="saylabel">Der Satz, den du heute setzen solltest</span>
+      <div class="de">
+        <p>
+          Als ich Ihre Public-Defense-Seite gelesen habe, ist mir vor allem die Säule Digital Continuity
+          aufgefallen, also durchgängige Daten über den Produktlebenszyklus mit synchronisierten Quellen.
+          Das ist ziemlich genau das, was ich seit drei Jahren mache. CIMPA kommt aus dem Product Lifecycle
+          Management, und meine Arbeit ist die Datengrundlage darunter, also Stammdaten, Konfiguration und
+          Nachvollziehbarkeit über Jahrzehnte. Digitale Zwillinge und Smart Administration stehen und fallen
+          mit dieser Schicht.
+        </p>
+      </div>
+      <div class="en">
+        <span class="enlabel">English</span>
+        <p>
+          When I read your Public Defense page, the pillar that stood out to me was Digital Continuity,
+          meaning continuous data across the product lifecycle with synchronised sources. That is almost
+          exactly what I have been doing for three years. CIMPA comes from Product Lifecycle Management, and
+          my work is the data foundation underneath it, so master data, configuration and traceability across
+          decades. Digital twins and smart administration stand or fall with that layer.
+        </p>
+      </div>
+    </div>
+
+    <h3>3b. The acronyms: BWI and BAAINBw</h3>
+    <p>
+      <span class="lead">What you heard as "WWI" is almost certainly BWI.</span> BWI GmbH is the Bundeswehr's
+      in-house IT system house, a federally owned company. More than 8,500 employees, 2.25 billion euro
+      revenue in 2025, 16 major and over 135 smaller sites. They run more than 1.2 million IT systems and one
+      of Europe's largest SAP landscapes. Three areas: administrative IT, deployment-near IT, and the
+      digitalisation of the armed forces.
+    </p>
+    <p class="lead">
+      The decisive fact, from early September: BWI announced at its Industry Days that it plans to award more
+      than ten billion euro in contracts to industry between 2027 and 2031, focused on highly available and
+      secure IT systems, the digital battlefield, and command capability.
+    </p>
+    <p>
+      That is why this role is being filled now. Mentioning it shows you understand the market, not just the
+      job ad.
+    </p>
+    <p>
+      <span class="lead">"BBI" is most likely BAAINBw</span>, the Federal Office for Bundeswehr Equipment,
+      Information Technology and In-Service Support, based in Koblenz, the procurement authority. It could
+      also be BMVg, the defence ministry. To be safe: say "BWI und die Beschaffungsseite, also BAAINBw"
+      rather than guessing an acronym. A wrong acronym is noticed instantly in this environment. A spelled-out
+      description never is.
+    </p>
+
+    <h3 class="pb">3c. Ravenstorm, and a serious warning</h3>
+    <p>
+      Airbus unveiled it at the ILA Berlin airshow in June 2026: the <span class="lead">U760 Ravenstorm</span>,
+      an Uncrewed Collaborative Combat Aircraft, a loyal-wingman type combat drone, stealth-shaped, intended
+      for air-to-surface precision strike, air-to-air defence and electronic warfare. Airbus says it will be
+      available in the early 2030s.
+    </p>
+    <p>
+      The part that matters for you: autonomy runs on Airbus's own <span class="lead">MARS Mission System</span>,
+      Multiplatform Autonomous Reconfigurable and Secure, with an AI-supported software core intended to scale
+      across the whole drone family. That is exactly the territory of this role: AI as a capability inside a
+      software-defined platform.
+    </p>
+
+    <div class="box rose">
+      <h4 style="margin-top:0">Do not blur this line</h4>
+      <p class="lead">
+        You work on the civil side of Airbus. A321XLR, EBAM, Skywise, Commercial Aircraft. Ravenstorm is
+        Airbus Defence and Space, a different part of the group.
+      </p>
+      <p>
+        Say nothing that could sound as though you are involved with it. If she follows up and you have to
+        walk it back, the damage to trust is larger than anything you gain. State the boundary yourself,
+        first, and then say what genuinely interests you about it.
+      </p>
+    </div>
+
+    <div class="say">
+      <span class="saylabel">Falls Ravenstorm zur Sprache kommt</span>
+      <div class="de">
+        <p>
+          Ravenstorm habe ich verfolgt, seit Airbus es im Juni auf der ILA vorgestellt hat. Das ist Airbus
+          Defence and Space, ich selbst arbeite auf der zivilen Seite, also Commercial Aircraft. Was mich daran
+          interessiert, ist, dass die Autonomie über ein Missionssystem mit KI-Kern läuft, das über mehrere
+          Plattformen hinweg skalieren soll. Das ist genau die Frage, die mich reizt: nicht ein Modell für
+          einen Zweck, sondern eine KI-Fähigkeit, die über eine Systemfamilie hinweg trägt und trotzdem
+          nachvollziehbar bleibt.
+        </p>
+      </div>
+      <div class="en">
+        <span class="enlabel">English</span>
+        <p>
+          I have followed Ravenstorm since Airbus presented it at the ILA in June. That is Airbus Defence and
+          Space, I work on the civil side myself, Commercial Aircraft. What interests me about it is that the
+          autonomy runs on a mission system with an AI core that is meant to scale across several platforms.
+          That is exactly the question I find compelling: not one model for one purpose, but an AI capability
+          that carries across a family of systems and still stays traceable.
+        </p>
+      </div>
+    </div>
+
+    <div class="box">
+      <p>
+        Context, but <span class="lead">do not open with it</span>: Ravenstorm has gained importance because
+        the Franco-German fighter programme within FCAS has run into difficulty. That is politically sensitive
+        ground and you have no reason to hold a view on it. If they raise it, listen and ask a question.
+      </p>
+    </div>
+
+    <h3>3d. Why Carl sent you this</h3>
+    <p>
+      Read it this way: he is telling you the Defense unit works with BWI and with Airbus Defence. That points
+      at a selling argument you have not been using.
+    </p>
+    <p>
+      You know the Airbus group from the inside. Its data platforms, its governance structures, how it works
+      and how it talks. If Capgemini is working towards Airbus Defence and Space, someone who knows the Airbus
+      data ecosystem is not a career changer. She is a shortcut.
+    </p>
+
+    <div class="say">
+      <span class="saylabel">Einmal sagen, nicht wiederholen</span>
+      <div class="de">
+        <p>
+          Wenn Airbus Defence and Space zu Ihren Kunden gehört, bringe ich etwas mit, das man schwer nachlesen
+          kann: Ich kenne die Datenplattformen und die Governance-Strukturen des Konzerns von innen und weiß,
+          wie dort Entscheidungen zustande kommen. Das verkürzt die Einarbeitung erheblich.
+        </p>
+      </div>
+      <div class="en">
+        <span class="enlabel">English</span>
+        <p>
+          If Airbus Defence and Space is one of your clients, I bring something that is hard to read up on:
+          I know the group's data platforms and governance structures from the inside, and I know how
+          decisions get made there. That shortens onboarding considerably.
+        </p>
+      </div>
+    </div>
+
+    <h2 class="pb"><span class="num">04</span>Your questions, updated</h2>
+
+    <p>
+      Pick four or five, not more. Good questions are the part of the conversation people remember.
+      These two are now better than what was in the first brief:
+    </p>
+
+    <div class="say">
+      <span class="saylabel">An Franziska Rosenbaum</span>
+      <div class="de">
+        <p>
+          Die BWI hat Anfang September Vergaben von über zehn Milliarden Euro für 2027 bis 2031 angekündigt.
+          Wie positioniert sich Capgemini darauf, und wie verschiebt das Ihr Portfolio in den nächsten
+          zwei Jahren?
+        </p>
+      </div>
+      <div class="en">
+        <span class="enlabel">English</span>
+        <p>
+          BWI announced in early September that it plans to award more than ten billion euro in contracts
+          between 2027 and 2031. How is Capgemini positioning for that, and how does it shift your portfolio
+          over the next two years?
+        </p>
+      </div>
+    </div>
+
+    <div class="say">
+      <span class="saylabel">An beide</span>
+      <div class="de">
+        <p>
+          Die vierte Säule auf Ihrer Seite, Digital Continuity, ist die, die meiner Arbeit am nächsten liegt.
+          Wie konkret ist das heute in Projekten, und wie viel davon ist noch Zielbild?
+        </p>
+      </div>
+      <div class="en">
+        <span class="enlabel">English</span>
+        <p>
+          The fourth pillar on your page, Digital Continuity, is the one closest to my own work. How concrete
+          is that in projects today, and how much of it is still a target picture?
+        </p>
+      </div>
+    </div>
+
+    <div class="say">
+      <span class="saylabel">An Lilli Bruckschen</span>
+      <div class="de">
+        <p>
+          Wenn Sie auf die Vorhaben der letzten zwölf Monate schauen, woran scheitern KI-Initiativen in diesem
+          Umfeld am häufigsten? An der Technik, an den Daten oder an der Abnahme?
+        </p>
+      </div>
+      <div class="en">
+        <span class="enlabel">English</span>
+        <p>
+          Looking at the last twelve months of work, where do AI initiatives most often fail in this
+          environment? On the technology, on the data, or on acceptance and sign-off?
+        </p>
+      </div>
+    </div>
+
+    <div class="say">
+      <span class="saylabel">Zur Rolle · die beste Frage, hebe sie dir für den Schluss auf</span>
+      <div class="de">
+        <p>
+          Was müsste in den ersten sechs Monaten passieren, damit Sie sagen, die Besetzung war richtig?
+        </p>
+      </div>
+      <div class="en">
+        <span class="enlabel">English</span>
+        <p>
+          What would have to happen in the first six months for you to say this hire was the right one?
+        </p>
+      </div>
+    </div>
+
+    <!-- ============ CHEAT SHEET ============ -->
+    <div class="cheat pb">
+      <h2 style="margin-top:0"><span class="num">SPICK</span>Eine Seite für 13:55</h2>
+
+      <div class="grid2">
+        <div>
+          <h4>Selbstvorstellung, vier Häkchen</h4>
+          <ul>
+            <li>Wer ich bin · Was ich verantworte</li>
+            <li>Was ich baue · Warum ich hier bin</li>
+            <li>Neunzig Sekunden. Auf die Uhr schauen.</li>
+            <li>Carl Hase im letzten Satz.</li>
+          </ul>
+
+          <h4>Zahlen</h4>
+          <ul>
+            <li>40+ Initiativen, 30 geliefert</li>
+            <li>11 Agenten, 15 Stationen, Freigabe an jeder</li>
+            <li>3 Retrieval-Wege</li>
+            <li>seit 2023 CIMPA, seit Jan 2026 AI Accelerator</li>
+          </ul>
+
+          <h4>Retrieval in einem Satz</h4>
+          <p style="font-size:8.9pt">
+            Lexikalisch findet exakte Namen. Vektorbasiert findet Bedeutung. Graphbasiert findet Beziehungen.
+            Zusammengeführt, geerdet im internen Bestand, mit Quellenangabe. Nichts gefunden heißt: nichts
+            gefunden.
+          </p>
+
+          <h4>Nur sagen, was du gebaut hast</h4>
+          <p style="font-size:8.9pt">
+            Wenn der Graph schlank ist, sag das. Ehrlichkeit hält jede Nachfrage aus, Übertreibung nicht zwei.
+          </p>
+        </div>
+
+        <div>
+          <h4>Deine Säule</h4>
+          <p style="font-size:8.9pt">
+            <span class="lead">Digital Continuity.</span> Durchgängige Daten über den Produktlebenszyklus,
+            synchronisierte Quellen, digitale Zwillinge. Das ist wörtlich dein Beruf. Einmal platzieren.
+          </p>
+
+          <h4>Die vier Säulen</h4>
+          <ul>
+            <li>Software Defined &amp; Connected Defense</li>
+            <li>Cloud</li>
+            <li>Smart Administration</li>
+            <li>Digital Continuity</li>
+          </ul>
+
+          <h4>Marktwissen</h4>
+          <ul>
+            <li>BWI: IT-Systemhaus der Bundeswehr, 8.500 Mitarbeitende</li>
+            <li>BWI vergibt 2027 bis 2031 über 10 Mrd. an die Industrie</li>
+            <li>BAAINBw, Koblenz, Beschaffung</li>
+            <li>Ravenstorm U760: Airbus Defence and Space, nicht meine Seite</li>
+          </ul>
+
+          <h4>Rote Linien</h4>
+          <ul>
+            <li>Keine internen Airbus-Details</li>
+            <li>Nicht behaupten: Embedded, Zulassung, CV in Produktion</li>
+            <li>Keine Hobbys, keine Familie</li>
+            <li>Kein Wort gegen CIMPA</li>
+          </ul>
+
+          <h4>Zum Schluss</h4>
+          <p style="font-size:8.9pt">
+            Sagen, dass du die Rolle willst. Und fragen: Was müsste in sechs Monaten passiert sein, damit die
+            Besetzung richtig war?
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div>Interview Brief II · Capgemini AI Solutions Architect Defense · 10.09.2026</div>
+      <div>Crista Villatoro-Müller · cristavillatoro.com</div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Interviewvorbereitung — AI Solutions Architect Defense, Capgemini</title>
+<!--
+  BEARBEITEN: Text zwischen den Tags ändern.
+  PDF: in Chrome öffnen, Cmd+P, "Als PDF sichern", Ränder "Standard", "Hintergrundgrafiken" anhaken.
+-->
+<style>
+  :root {
+    --ink: #0f172a; --ink-soft: #334155; --ink-mute: #64748b; --rule: #e2e8f0; --rule-soft: #eef2f7;
+    --amber: #b45309; --indigo: #4338ca; --teal: #0f766e; --green: #15803d; --rose: #9f1239;
+    --wash: #f8fafc;
+  }
+  @page { size: A4; margin: 13mm 15mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #eef1f6; color: var(--ink-soft);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 9.6pt; line-height: 1.5; letter-spacing: -.005em; -webkit-font-smoothing: antialiased;
+  }
+  .sheet { width: 210mm; margin: 10mm auto; background: #fff; box-shadow: 0 6px 30px rgba(15,23,42,.13); }
+  .topbar { display: flex; height: 5px; }
+  .topbar span { flex: 1; }
+  .topbar span:nth-child(1){ background: var(--amber); }
+  .topbar span:nth-child(2){ background: var(--indigo); }
+  .topbar span:nth-child(3){ background: var(--teal); }
+  .topbar span:nth-child(4){ background: var(--green); }
+  .inner { padding: 12mm 15mm 14mm; }
+
+  header { border-bottom: 1px solid var(--rule); padding-bottom: 5mm; margin-bottom: 6mm; }
+  .kicker { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7.6pt;
+            letter-spacing: .2em; text-transform: uppercase; color: var(--amber); font-weight: 600; margin-bottom: 5px; }
+  h1 { font-size: 18pt; font-weight: 800; letter-spacing: -.025em; color: var(--ink); line-height: 1.15; }
+  .sub { margin-top: 6px; font-size: 9.4pt; color: var(--ink-mute); }
+
+  h2 { font-size: 12.5pt; font-weight: 750; color: var(--ink); letter-spacing: -.02em;
+       margin: 9mm 0 3.5mm; padding-top: 3.5mm; border-top: 2px solid var(--ink); }
+  h2:first-of-type { margin-top: 0; }
+  h2 .num { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8.5pt;
+            color: var(--amber); margin-right: 8px; font-weight: 600; }
+  h3 { font-size: 10.2pt; font-weight: 700; color: var(--ink); margin: 5.5mm 0 2mm; letter-spacing: -.01em; }
+  h4 { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7.6pt; letter-spacing: .16em;
+       text-transform: uppercase; color: var(--ink-mute); font-weight: 600; margin: 4.5mm 0 1.8mm; }
+  p { margin-bottom: 2.6mm; }
+  ul { list-style: none; margin: 0 0 3mm 0; }
+  li { position: relative; padding-left: 13px; margin-bottom: 1.7mm; }
+  li::before { content: ""; position: absolute; left: 0; top: 6.5px; width: 4px; height: 4px;
+               border-radius: 50%; background: var(--indigo); }
+  .lead { color: var(--ink); }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 8mm; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 6mm; }
+
+  .box { background: var(--wash); border: 1px solid var(--rule); border-left: 3px solid var(--indigo);
+         padding: 3.5mm 4.5mm; margin: 3mm 0 4mm; border-radius: 0 3px 3px 0; }
+  .box.amber { border-left-color: var(--amber); }
+  .box.rose  { border-left-color: var(--rose); }
+  .box.teal  { border-left-color: var(--teal); }
+  .box.green { border-left-color: var(--green); }
+  .box p:last-child, .box ul:last-child { margin-bottom: 0; }
+
+  .say { background: #fff; border: 1px solid var(--rule); border-left: 3px solid var(--teal);
+         padding: 3.5mm 4.5mm; margin: 2.5mm 0 4mm; font-size: 9.5pt; color: var(--ink);
+         line-height: 1.62; border-radius: 0 3px 3px 0; }
+  .say p { margin-bottom: 2.4mm; }
+  .say p:last-child { margin-bottom: 0; }
+  .saylabel { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7.2pt;
+              letter-spacing: .16em; text-transform: uppercase; color: var(--teal); font-weight: 600;
+              display: block; margin-bottom: 2mm; }
+  .saylabel.mute { color: var(--ink-mute); }
+
+  .q { color: var(--ink); font-weight: 650; margin: 4.5mm 0 1.6mm; font-size: 9.8pt; }
+  .q::before { content: "F  "; font-family: ui-monospace, Menlo, monospace; color: var(--amber); font-size: 8pt; }
+
+  table { width: 100%; border-collapse: collapse; margin: 2.5mm 0 4mm; font-size: 9pt; }
+  th { text-align: left; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7.4pt;
+       letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); font-weight: 600;
+       border-bottom: 1px solid var(--ink); padding: 0 6px 1.8mm 0; vertical-align: bottom; }
+  td { padding: 2mm 6px 2mm 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  td:last-child, th:last-child { padding-right: 0; }
+  .num-cell { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8.6pt; color: var(--ink); white-space: nowrap; }
+
+  .tag { display: inline-block; font-family: ui-monospace, Menlo, monospace; font-size: 7.2pt;
+         letter-spacing: .1em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px;
+         background: #eef2ff; color: var(--indigo); margin: 0 4px 4px 0; }
+  .tag.a { background: #fef3c7; color: var(--amber); }
+  .tag.t { background: #ccfbf1; color: var(--teal); }
+  .tag.r { background: #ffe4e6; color: var(--rose); }
+
+  .pb { page-break-before: always; }
+  .avoid { page-break-inside: avoid; }
+  h2, h3 { page-break-after: avoid; }
+
+  .cheat h2 { border-top-color: var(--amber); }
+  .cheat li { margin-bottom: 1.3mm; }
+  .cheat { font-size: 9.2pt; }
+
+  footer { margin-top: 8mm; padding-top: 3mm; border-top: 1px solid var(--rule);
+           font-size: 8.2pt; color: var(--ink-mute); display: flex; justify-content: space-between; }
+
+  @media print {
+    body { background: #fff; font-size: 9.3pt; }
+    .sheet { margin: 0; box-shadow: none; width: auto; }
+    .inner { padding: 0; }
+    .topbar { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="topbar"><span></span><span></span><span></span><span></span></div>
+  <div class="inner">
+
+    <header>
+      <div class="kicker">Interviewvorbereitung</div>
+      <h1>AI Solutions Architect Defense (w/m/d)<br>Capgemini Deutschland</h1>
+      <div class="sub">
+        Donnerstag, 10. September 2026, 14:00 CEST · 60 Minuten · Microsoft Teams · Kennenlerngespräch<br>
+        Panel: Lilli Bruckschen, Franziska Rosenbaum · Organisation: Magdalena Wybraniec · Referenz: Carl Hase<br>
+        Vorbereitet für Crista Villatoro-Müller · Stand 7. September 2026
+      </div>
+    </header>
+
+    <h2><span class="num">01</span>Die Ausgangslage</h2>
+
+    <p class="lead">
+      Ein Kennenlerngespräch ist noch kein Fachinterview. In sechzig Minuten mit zwei Personen geht es um drei Fragen:
+      Passt der fachliche Kern. Kann diese Person vor einem Kunden stehen. Will sie ausgerechnet Defense.
+      Deine Aufgabe ist nicht, alles zu beweisen, sondern eine glaubwürdige Linie zu ziehen und in die zweite Runde zu kommen.
+    </p>
+
+    <div class="box amber">
+      <h4 style="margin-top:0">Deine Kernbotschaft, ein Satz</h4>
+      <p class="lead">
+        Ich baue KI-Systeme in einem Umfeld, in dem Nachvollziehbarkeit, Datenqualität und lange Produktlebenszyklen
+        über den Erfolg entscheiden, und ich bringe die Governance-Disziplin mit, an der die meisten KI-Vorhaben scheitern.
+      </p>
+      <p>
+        Alles andere in diesem Dokument ist eine Variation dieses Satzes. Wenn du unsicher wirst, kehre dorthin zurück.
+      </p>
+    </div>
+
+    <h3>Was die Stellenanzeige wirklich sagt</h3>
+    <p>
+      Lies das Profil noch einmal genau. Vier von fünf Anforderungen sind deine: KI-Technologien und Architekturen in der
+      Praxis, Datenmanagement und Data Governance, Aufbau datengetriebener Lösungen, Bewertung von Use Cases mit klarem
+      Mehrwert, Kommunikation auf verschiedenen Stakeholder-Ebenen, Deutsch und Englisch. Defense steht dort als
+      <span class="tag a">idealerweise</span> und nicht als Muss. Das ist keine Auslegung, das ist der Wortlaut.
+      Was dir fehlt, ist Pre-Sales-Erfahrung im engeren Sinne und das Defense-Umfeld selbst.
+    </p>
+
+    <h2><span class="num">02</span>Wer dir gegenübersitzt</h2>
+
+    <div class="box">
+      <p>
+        Hinweis zur Quelle: Die folgende Einschätzung stammt aus öffentlichen Suchergebnissen zu den beiden Namen.
+        LinkedIn ließ sich nicht direkt auslesen. Schau dir beide Profile vor Donnerstag selbst an und korrigiere,
+        was nicht stimmt. Die Rollenverteilung im Gespräch dürfte aber stimmen.
+      </p>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <h3>Lilli Bruckschen</h3>
+        <p>
+          Informatikerin mit Forschungshintergrund. Publikationen aus der Universität Bonn zu Robotik, menschlicher
+          Bewegungsvorhersage und Bayesscher Inferenz, danach Fraunhofer. Sie ist deine fachliche Gegenüber.
+        </p>
+        <h4>Was sie prüft</h4>
+        <ul>
+          <li>Verstehst du, was du gebaut hast, oder erzählst du nur davon</li>
+          <li>Kannst du eine Architekturentscheidung begründen und die Alternative benennen, die du verworfen hast</li>
+          <li>Weißt du, wo deine Grenze liegt</li>
+        </ul>
+        <p>
+          Bei einer Forscherin gewinnt Präzision gegen Vokabular. Ein ehrliches "das habe ich nicht gemacht, aber
+          das Nächstliegende ist" zählt bei ihr mehr als ein flotter Begriff.
+        </p>
+      </div>
+      <div>
+        <h3>Franziska Rosenbaum</h3>
+        <p>
+          Strategie- und Managementberatung mit Schwerpunkt Public und Defense, Hintergrund Politikwissenschaft.
+          Sie ist die Domänen- und Beratungsseite des Gesprächs.
+        </p>
+        <h4>Was sie prüft</h4>
+        <ul>
+          <li>Warum Defense, und zwar überzeugend, nicht opportunistisch</li>
+          <li>Wie du mit Stakeholdern umgehst, die kein KI-Vokabular haben</li>
+          <li>Ob du öffentliche Auftraggeber und ihre Taktung verstehst</li>
+          <li>Reisebereitschaft, Auftreten, Kundentauglichkeit</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="box teal">
+      <p>
+        Praktische Folge: Wenn eine Frage technisch ist, antworte technisch und präzise, aber schließe mit dem Nutzen.
+        Wenn eine Frage fachlich-inhaltlich ist, antworte am Nutzen entlang und biete die technische Tiefe an.
+        So bedienst du beide, ohne eine von beiden zu langweilen.
+      </p>
+    </div>
+
+    <h2><span class="num">03</span>Selbstvorstellung, neunzig Sekunden</h2>
+
+    <p>
+      Das ist die erste Frage. Sie entscheidet mehr als jede andere. Lerne die Struktur, nicht den Wortlaut, und
+      sprich sie zweimal laut, bevor du dich einwählst.
+    </p>
+
+    <div class="say">
+      <span class="saylabel">Deutsch</span>
+      <p>
+        Ich bin Data und AI Consultant in Berlin und arbeite seit 2023 bei CIMPA, einem Unternehmen von Sopra Steria,
+        in Airbus-Projekten. Mein Hintergrund ist Ingenieurwesen. Chemieingenieurwesen in Guatemala, danach der Master
+        in Umweltingenieurwesen in Lübeck, und der Weg in die Daten kam über die Analytik.
+      </p>
+      <p>
+        Heute habe ich zwei Rollen. In der einen verantworte ich eine Data-Governance-Roadmap mit über vierzig
+        Initiativen auf den Airbus-Datenplattformen, von Governance-Frameworks über Datenqualitätskampagnen bis zu
+        Monitoring-Dashboards und Adoption. Dreißig davon sind umgesetzt.
+      </p>
+      <p>
+        In der anderen bin ich offiziell nominierte AI Accelerator, das heißt, ich baue selbst. RaiDAR ist ein
+        KI-gestützter Plattformkatalog mit hybridem Retrieval, lexikalisch, vektorbasiert und graphbasiert, mit
+        Quellenbelegen und nachvollziehbaren Schritten. SPARK ist ein Team aus elf spezialisierten Agenten, das einen
+        vollständigen Delivery-Prozess über fünfzehn Stationen abbildet, mit einer menschlichen Freigabe an jeder
+        Übergabe.
+      </p>
+      <p>
+        Was mich an dieser Rolle reizt, ist die Verbindung von beidem. Ich komme aus einem Umfeld, in dem
+        Nachvollziehbarkeit, Datenqualität und lange Produktlebenszyklen über den Erfolg entscheiden. Genau das sind
+        die Bedingungen, unter denen KI im Defense-Umfeld funktionieren muss. Carl Hase hat mich auf die Rolle
+        aufmerksam gemacht und mich empfohlen.
+      </p>
+    </div>
+
+    <div class="say" style="border-left-color: var(--ink-mute);">
+      <span class="saylabel mute">Englisch, falls sie wechseln</span>
+      <p>
+        I am a Data and AI Consultant based in Berlin. Since 2023 I have been with CIMPA, a Sopra Steria company,
+        working on Airbus projects. My background is engineering: chemical engineering in Guatemala, then a master's
+        in environmental engineering in Lübeck, and I moved into data through analytics.
+      </p>
+      <p>
+        I hold two roles today. In the first I own a data governance roadmap of more than forty initiatives across the
+        Airbus data platforms, covering governance frameworks, data quality campaigns, monitoring dashboards and
+        adoption. Thirty are delivered.
+      </p>
+      <p>
+        In the second I am a nominated AI Accelerator, which means I build. RaiDAR is an AI-powered platform catalogue
+        with hybrid retrieval, lexical, vector and graph based, with source-grounded answers and traceable steps.
+        SPARK is a team of eleven specialised agents running a full delivery pipeline across fifteen stations, with an
+        explicit human approval gate at every handover.
+      </p>
+      <p>
+        What draws me to this role is the combination. I come from an environment where traceability, data quality and
+        long product lifecycles decide whether something works. Those are exactly the conditions AI has to survive in
+        defence. Carl Hase pointed me to the role and recommended me.
+      </p>
+    </div>
+
+    <h2 class="pb"><span class="num">04</span>Die vier heiklen Punkte</h2>
+
+    <h3>A. "Sie haben keine Defense-Erfahrung"</h3>
+
+    <p>
+      Das kommt. Wahrscheinlich von Franziska Rosenbaum. Der Fehler wäre, es kleinzureden oder sich zu entschuldigen.
+      Der Zug, der funktioniert, hat drei Teile: Grenze benennen, nächstliegende echte Erfahrung anbieten, zeigen,
+      warum sie überträgt.
+    </p>
+
+    <div class="say">
+      <span class="saylabel">Deutsch</span>
+      <p>
+        Stimmt, ich war nie bei der Bundeswehr und ich habe kein Behördenprojekt im Verteidigungsressort gemacht.
+        Was ich habe, ist Luftfahrt. Bei Airbus arbeite ich in einem Umfeld mit denselben Grundbedingungen:
+        sicherheitskritische Produkte, Zertifizierung, Konfigurationsmanagement, Lebenszyklen von dreißig Jahren und
+        aufwärts, eine tief gestaffelte Lieferkette und Daten, die über Jahrzehnte nachvollziehbar bleiben müssen.
+      </p>
+      <p>
+        Dazu kommt die öffentliche Seite. Ich habe vier Jahre in der Botschaft von Guatemala in Berlin gearbeitet,
+        also in einer Behörde mit vertraulichen Vorgängen, formalen Verfahren und politischen Stakeholdern.
+        Das ist nicht Defense, aber es ist die Taktung des öffentlichen Sektors, und die ist mir nicht fremd.
+      </p>
+      <p>
+        Was ich mitbringe, ist die Übersetzung. Die Fragen im Defense-Umfeld sind nicht, ob ein Modell funktioniert,
+        sondern ob man ihm trauen kann, wer verantwortlich ist, wenn es falsch liegt, und wie man das nachweist.
+        Genau daran arbeite ich seit drei Jahren.
+      </p>
+    </div>
+
+    <div class="box amber">
+      <h4 style="margin-top:0">Die Brücke in einer Zeile, falls du sie kurz brauchst</h4>
+      <p class="lead">
+        Luft- und Raumfahrt ist die zivile Disziplin, die dem Verteidigungssektor am nächsten kommt, und die
+        Verteidigungsindustrie ist in der Anzeige ausdrücklich als Kundengruppe genannt.
+      </p>
+    </div>
+
+    <h4>Sicherheitsüberprüfung, rechne mit der Frage</h4>
+    <ul>
+      <li>Antworte faktisch zu Staatsangehörigkeit und Aufenthaltsdauer in Deutschland. Nicht ausweichen, nicht ausschmücken.</li>
+      <li>Sage klar, dass du zu einer Sicherheitsüberprüfung nach SÜG bereit bist. Der Antrag geht vom Arbeitgeber aus, nicht von dir.</li>
+      <li>Spekuliere nicht über Dauer oder Ausgang. Wenn sie Details wollen, ist die richtige Antwort: das klären wir gern im nächsten Schritt mit HR.</li>
+      <li>Denk daran: nicht jedes Projekt in diesem Portfolio ist eingestuft. Industriekunden und viele Behördenvorhaben laufen ohne Einstufung.</li>
+    </ul>
+
+    <h3>B. Vom Senior Data Analyst zum AI Solutions Architect</h3>
+
+    <p>
+      Der Titel hinkt deiner Arbeit hinterher. Das ist keine Schwäche, das ist ein Beschreibungsproblem, und du
+      löst es, indem du Architekturentscheidungen nennst, die du tatsächlich getroffen hast. Eine Entscheidung
+      ist erst dann eine Architekturentscheidung, wenn du sagen kannst, was du verworfen hast und warum.
+    </p>
+
+    <table>
+      <thead>
+        <tr><th style="width:26%">Entscheidung</th><th style="width:37%">Was du gewählt hast</th><th>Was du verworfen hast, und warum</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RaiDAR, Retrieval</td>
+          <td>Hybrid aus lexikalisch, vektorbasiert und graphbasiert</td>
+          <td>Reine Vektorsuche. Sie findet Ähnliches, aber nicht das Exakte. Bei Plattform- und Systemnamen ist genau das Exakte gefragt, und Beziehungen zwischen Systemen bekommt man über den Graphen, nicht über Embeddings.</td>
+        </tr>
+        <tr>
+          <td>RaiDAR, Grounding</td>
+          <td>Antworten ausschließlich aus dem internen Bestand, mit Quellenbelegen</td>
+          <td>Offenes Web als Fallback. In einem internen Katalog ist eine plausible falsche Antwort schädlicher als keine Antwort.</td>
+        </tr>
+        <tr>
+          <td>SPARK, Zuschnitt</td>
+          <td>Elf spezialisierte Agenten, Trennung der Zuständigkeiten</td>
+          <td>Ein großer Generalist-Agent. Der ist nicht prüfbar. Mit getrennten Rollen kann ein Mensch jede Übergabe einzeln bewerten.</td>
+        </tr>
+        <tr>
+          <td>SPARK, Modelle</td>
+          <td>Gestufter Modelleinsatz je Station</td>
+          <td>Das stärkste Modell überall. Kosten und Latenz ohne Qualitätsgewinn an Stellen, die keinen brauchen.</td>
+        </tr>
+        <tr>
+          <td>SPARK, Kontrolle</td>
+          <td>Explizite menschliche Freigabe an jeder der fünfzehn Stationen</td>
+          <td>Vollautomatischer Durchlauf. Ohne Freigabepunkte gibt es keine Verantwortlichkeit und keinen Audit-Pfad.</td>
+        </tr>
+        <tr>
+          <td>Governance-Portfolio</td>
+          <td>Vierzig Initiativen priorisiert, dreißig geliefert</td>
+          <td>Alles gleichzeitig. Priorisierung nach Wirkung und Datenreife ist selbst eine Architekturentscheidung auf Portfolioebene.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="say">
+      <span class="saylabel">Falls sie direkt fragen: warum Architect und nicht Analyst</span>
+      <p>
+        Mein Titel sagt Analyst, meine Arbeit sagt seit zwei Jahren etwas anderes. Bei RaiDAR habe ich das
+        Retrieval-Muster entworfen, die Plattform gewählt, entschieden, was gebaut und was eingekauft wird, und
+        festgelegt, wie Antworten belegt werden. Bei SPARK habe ich einen Prozess mit fünfzehn Stationen, elf Rollen
+        und Freigabepunkten entworfen und dann selbst gebaut. Was mir gegenüber einem erfahrenen Architekten fehlt,
+        ist Breite über viele Kunden hinweg. Was ich mitbringe, ist, dass ich die Systeme, die ich entwerfe, auch
+        selbst zum Laufen bringe, und dass ich weiß, wo Entwürfe in der Umsetzung brechen.
+      </p>
+    </div>
+
+    <h3>C. Technische Tiefe: Software Defined Defense, Edge und Embedded AI</h3>
+
+    <p>
+      Diese drei Begriffe stehen im ersten Absatz der Anzeige. Du musst sie nicht beherrschen, aber du musst sie
+      verstanden haben und eine eigene Meinung dazu haben. Eine eigene Meinung ist hier wertvoller als eine Definition,
+      besonders bei Lilli Bruckschen.
+    </p>
+
+    <h4>Software Defined Defense</h4>
+    <p>
+      Der Wechsel von hardwarezentrierten Systemen zu Plattformen, deren Fähigkeiten durch Software, Daten und Cloud
+      bestimmt und im Feld aktualisiert werden. Statt einer Fähigkeit, die mit der Beschaffung festgelegt ist,
+      eine Fähigkeit, die in Releases wächst. In Deutschland getrieben unter anderem über den Cyber Innovation Hub
+      der Bundeswehr und Vorhaben wie Platform42, fachlich begleitet etwa von Fraunhofer IKS.
+    </p>
+    <div class="box">
+      <h4 style="margin-top:0">Deine Meinung dazu, und sie ist gut</h4>
+      <p>
+        Der schwierige Teil ist nicht die Software, sondern die Datengrundlage und der Freigabeprozess.
+        Man kann keine wöchentlichen Releases fahren, wenn die Datenherkunft nicht sauber ist und wenn jede Änderung
+        ein halbes Jahr Abnahme braucht. Genau das ist die Brücke zu meiner Governance-Arbeit: Software Defined
+        Defense scheitert nicht an Modellen, sondern an Stammdaten, Versionierung und Nachweisbarkeit.
+      </p>
+    </div>
+
+    <h4>Edge AI</h4>
+    <p>
+      Inferenz auf dem Gerät statt in der Cloud. Treiber sind Latenz, Bandbreite, unterbrochene oder bewusst
+      abgeschaltete Verbindungen und Datenhoheit. Grenzen sind Energie, Wärme und Speicher. Werkzeuge sind
+      Quantisierung, Pruning, Distillation, kleinere Modelle und optimierte Laufzeiten.
+    </p>
+    <div class="box">
+      <h4 style="margin-top:0">Der Satz, der zeigt, dass du es verstanden hast</h4>
+      <p>
+        Das eigentliche Problem am Edge ist nicht, das Modell klein zu bekommen, sondern sein Lebenszyklus.
+        Wie aktualisiert, überwacht und rollt man ein Modell zurück auf einer Plattform, die wochenlang keine
+        Verbindung hat, und wie weist man hinterher nach, welche Version welche Entscheidung getroffen hat.
+        Das ist eine Governance-Frage in technischer Verkleidung.
+      </p>
+    </div>
+
+    <h4>Embedded AI</h4>
+    <p>
+      KI als Bestandteil des Systems selbst, nicht als Anwendung daneben. Die harte Frage ist Zulassung:
+      sicherheitskritische Software wird gegen Determinismus und Nachweisbarkeit geprüft, und maschinelles Lernen
+      ist per Konstruktion nicht deterministisch. Üblicher Ausweg sind eingegrenzte Rollen für das Modell,
+      klassische Überwachungslogik daneben und der Mensch in der Entscheidungskette.
+    </p>
+    <div class="box rose">
+      <h4 style="margin-top:0">Hier liegt deine Grenze, und du benennst sie zuerst</h4>
+      <p>
+        Sage von dir aus: Embedded und Echtzeitsysteme habe ich nicht entwickelt, und Zulassung sicherheitskritischer
+        Software habe ich nicht verantwortet. Was ich aus der Luftfahrt kenne, ist das Denken dahinter, und was ich
+        beitrage, ist die Datenseite, ohne die kein eingebettetes Modell zugelassen wird.
+        Von sich aus eine Grenze zu ziehen wirkt souverän. Auf eine Grenze gestoßen zu werden wirkt anders.
+      </p>
+    </div>
+
+    <h4>Predictive Maintenance und digitale Zwillinge</h4>
+    <p>
+      Hier bist du näher dran, als du denkst, und die Anzeige nennt beides ausdrücklich.
+      Bei Predictive Maintenance ist der Engpass fast nie das Modell, sondern die Datenlage: Zustandsdaten ohne
+      saubere Fehlerhistorie, uneinheitliche Bauteilstämme, fehlende Labels für die Ereignisse, die man vorhersagen
+      will. Genau daran arbeitest du. Bei digitalen Zwillingen ist die gleiche Wahrheit noch schärfer: ein Zwilling
+      ist nur so gut wie das Stammdatenmodell darunter.
+    </p>
+
+    <div class="say">
+      <span class="saylabel">Wenn sie fragen, wo du im Defense-Portfolio anfangen würdest</span>
+      <p>
+        Ich würde nicht bei der spektakulärsten Anwendung anfangen, sondern bei der, die am schnellsten belastbar
+        wird. Predictive Maintenance und Instandhaltung in Produktion und Engineering sind dafür der beste
+        Einstieg, weil der Nutzen messbar ist, die Daten schon existieren und der Fehlerfall teuer, aber nicht
+        gefährlich ist. Damit baut man Vertrauen und die Datengrundlage, auf der die nächste Stufe überhaupt
+        erst möglich wird.
+      </p>
+    </div>
+
+    <h3>D. Gehalt und Logistik</h3>
+
+    <p>
+      Im Kennenlerngespräch wird das Gehalt oft am Ende kurz angerissen, manchmal von der Recruiterin, manchmal gar
+      nicht. Sei vorbereitet, aber dränge nicht darauf.
+    </p>
+
+    <h4>Öffentliche Vergleichswerte, Stand September 2026</h4>
+    <table>
+      <thead>
+        <tr><th style="width:42%">Quelle</th><th style="width:29%">Median oder Mittel</th><th>Spanne</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Stepstone, Solution Architect, Deutschland</td><td class="num-cell">69.800 EUR</td><td class="num-cell">61.300 bis 82.200 EUR</td></tr>
+        <tr><td>Stepstone, Solution Architect, Berlin</td><td class="num-cell">73.500 EUR</td><td class="num-cell">63.700 bis 85.100 EUR</td></tr>
+        <tr><td>jobvector, Solution Architect, Berlin</td><td class="num-cell">77.464 EUR</td><td class="num-cell">62.750 bis 85.000 EUR</td></tr>
+      </tbody>
+    </table>
+    <p>
+      Diese Zahlen bilden den allgemeinen Markt ab, nicht eine Senior-Rolle bei einer großen Beratung mit
+      Reisetätigkeit, Angebotsverantwortung und Defense-Bezug. Dafür liegt der realistische Rahmen höher.
+      Eine belastbare Zielmarke für diese Rolle sind etwa 85.000 bis 95.000 Euro Fixum, je nach Karrierestufe,
+      plus variablem Anteil in der Größenordnung von zehn Prozent.
+      Prüfe die Zahl gegen dein aktuelles Gehalt und verschiebe sie nach oben, wenn du schon nahe daran liegst.
+    </p>
+
+    <div class="say">
+      <span class="saylabel">Wenn die Frage kommt</span>
+      <p>
+        Bevor ich eine Zahl nenne, würde mich interessieren, auf welcher Karrierestufe die Rolle angesiedelt ist und
+        wie sich das Paket aus Fixum und variablem Anteil zusammensetzt. Auf Basis des Marktes und meiner aktuellen
+        Verantwortung liege ich bei einem Jahresfixum von etwa neunzigtausend Euro. Der Gesamtrahmen und die
+        Entwicklungsperspektive sind mir dabei aber wichtiger als die einzelne Zahl.
+      </p>
+    </div>
+
+    <div class="box">
+      <h4 style="margin-top:0">Wenn sie auf einer Zahl bestehen, bevor du fragen konntest</h4>
+      <p>
+        Nenne die Spanne, nicht den unteren Rand: "Ich orientiere mich an fünfundachtzig bis fünfundneunzigtausend
+        Fixum, abhängig von der Stufe und dem Gesamtpaket." Danach schweigst du. Der nächste Satz gehört ihnen.
+      </p>
+    </div>
+
+    <h4>Logistik, kurz und ohne Zögern beantworten</h4>
+    <table>
+      <thead><tr><th style="width:30%">Thema</th><th>Deine Antwort</th></tr></thead>
+      <tbody>
+        <tr><td>Kündigungsfrist</td><td>Schau vor Donnerstag in deinen Vertrag. Nenne die Frist exakt, nicht ungefähr. Üblich sind drei Monate, oft zum Quartals- oder Monatsende.</td></tr>
+        <tr><td>Früheste Verfügbarkeit</td><td>Ergibt sich aus der Frist. Nenne ein konkretes Datum, das wirkt organisiert.</td></tr>
+        <tr><td>Reisetätigkeit</td><td>Ja, mit Berlin als Basis. Frage zurück, wie sich das in der Praxis verteilt, Bonn und Koblenz sind die naheliegenden Standorte im Ressort.</td></tr>
+        <tr><td>Standort und Hybrid</td><td>Berlin, hybrid. Kein Umzugsbedarf, das ist ein Vorteil, den du ruhig nennen kannst.</td></tr>
+        <tr><td>Sprache im Projekt</td><td>Deutsch und Englisch fließend, Spanisch als Muttersprache. Bei Behördenkunden ist Deutsch die Arbeitssprache, sage aktiv, dass das kein Thema ist.</td></tr>
+        <tr><td>Warum ein Wechsel</td><td>Nicht weg von CIMPA, sondern hin zu einer Rolle, in der Architektur und Beratung der Kern sind und nicht der Nebenanteil. Kein schlechtes Wort über den jetzigen Arbeitgeber, das fällt immer zurück.</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="pb"><span class="num">05</span>Deine Projekte in dreißig Sekunden</h2>
+
+    <p>
+      Jede Kurzfassung folgt derselben Form: Problem, Entscheidung, Ergebnis. Übe sie so, dass du bei jeder
+      an der Stelle "Entscheidung" langsamer wirst. Dort hört eine Architektin zu.
+    </p>
+
+    <h3>RaiDAR</h3>
+    <p>
+      Die Dokumentation zu den internen Plattformen lag verstreut und niemand wusste, was aktuell ist.
+      Ich habe einen KI-gestützten Katalog entworfen und aufgebaut, mit hybridem Retrieval aus lexikalischer,
+      vektorbasierter und graphbasierter Suche. Antworten sind ausschließlich im internen Bestand verankert,
+      mit Quellenbelegen und sichtbaren Pipeline-Schritten. Aus verstreuter Dokumentation wurde eine abfragbare
+      Quelle der Wahrheit. Betrieben üblicherweise auf Microsoft Azure, einschließlich Azure OpenAI.
+    </p>
+    <p class="lead" style="font-size:9pt">
+      Englisch: An AI-powered catalogue for internal platforms, built on hybrid retrieval, lexical, vector and graph.
+      Answers are grounded only in internal content, with citations and traceable pipeline steps.
+    </p>
+
+    <h3>SPARK</h3>
+    <p>
+      Prototypen und Angebote kosteten immer wieder dieselbe Vorarbeit. Ich habe ein Team aus elf spezialisierten
+      Agenten entworfen, das einen vollständigen Delivery-Prozess über fünfzehn Stationen abbildet, von Angebot
+      und Spezifikation über Daten- und KI-Architektur, Bau, Security-Review und QA bis zum Deployment. An jeder
+      Übergabe steht eine explizite menschliche Freigabe. Getrennte Zuständigkeiten und gestufter Modelleinsatz
+      halten das Ergebnis prüfbar und die Kosten im Rahmen. Erster Pilot war RaiDAR v2. Inzwischen im internen
+      KI-Betriebssystem der Gruppe nachgebaut, sodass Kolleginnen und Kollegen die Agenten direkt in VS Code nutzen.
+      Eine Low-Code-Variante für Microsoft 365 ist in Arbeit.
+    </p>
+    <p class="lead" style="font-size:9pt">
+      Englisch: Eleven specialised agents running a full delivery pipeline across fifteen stations, with an explicit
+      human approval gate at every handover. It builds, I decide.
+    </p>
+
+    <h3>Data-Governance-Portfolio</h3>
+    <p>
+      Eine Roadmap mit über vierzig Initiativen auf den Airbus-Datenplattformen EBAM und Palantir Skywise:
+      Governance-Frameworks, Datenqualitätskampagnen, Analysen, Monitoring-Dashboards und Adoption.
+      Dreißig sind umgesetzt. Dazu die Digitalisierung operativer Prozesse für den A321XLR-Hangar innerhalb des
+      Airbus Operating System.
+    </p>
+    <div class="box amber">
+      <p>
+        Beim Kunden bleibst du auf Portfolioebene. Keine internen Prozessdetails, keine Zahlen aus Systemen,
+        keine Namen von Ansprechpartnern. Wenn jemand tiefer bohrt: "Das ist Kundeninternes, aber ich kann Ihnen das
+        Muster beschreiben." Diese Antwort ist im Defense-Kontext ein Pluspunkt, kein Ausweichen.
+      </p>
+    </div>
+
+    <h3>Omdena, Satellitenbilder</h3>
+    <p>
+      Nur erwähnen, wenn Computer Vision oder Geodaten aufkommen, und dann korrekt eingeordnet:
+      ehrenamtliche Mitarbeit in kollaborativen Machine-Learning-Projekten, semantische Segmentierung urbaner
+      Grünflächen aus Satellitenbildern mit einem U-Net, dazu ein Projekt zu Precision Agriculture auf Geodatenbasis.
+      Das ist echte Erfahrung, aber keine Produktionserfahrung. Sage beides.
+    </p>
+
+    <h3>Digital Product Passport</h3>
+    <p>
+      Plattformkonzept im Einklang mit der EU-Batterieverordnung, mit agentischen Workflows für regulatorisches
+      Monitoring und Auditvorbereitung. Nützlich als Beleg dafür, dass du Regulierung als Entwurfsanforderung
+      behandelst und nicht als nachgelagerte Pflicht. Der Code liegt öffentlich auf deinem GitHub.
+    </p>
+
+    <h2 class="pb"><span class="num">06</span>Wahrscheinliche Fragen</h2>
+
+    <p class="q">Warum Defense, und warum jetzt</p>
+    <ul>
+      <li>Ehrlich und ohne Pathos. Der Sektor investiert gerade massiv in Software und Daten, und das ist genau meine Arbeit.</li>
+      <li>Der Reiz: ein Umfeld, in dem Verlässlichkeit über den Erfolg entscheidet und nicht über die Conversion Rate.</li>
+      <li>Der Bezug: aus der Luftfahrt kenne ich die Anforderungen an Nachvollziehbarkeit schon, mich reizt, sie dort anzuwenden, wo sie am meisten zählen.</li>
+      <li>Nicht sagen: dass der Markt gerade wächst und du deswegen kommst. Das denken sie sich, aber es soll nicht dein Hauptargument sein.</li>
+    </ul>
+
+    <p class="q">Was ist für Sie der Unterschied zwischen einem KI-Prototyp und einer KI-Lösung</p>
+    <ul>
+      <li>Der Prototyp beantwortet die Frage, ob es geht. Die Lösung beantwortet, ob es trägt.</li>
+      <li>Dazwischen liegen Datenherkunft, Betrieb, Monitoring, Rollen und Verantwortlichkeiten, Kosten pro Anfrage und die Frage, wer entscheidet, wenn das Modell falsch liegt.</li>
+      <li>Konkret: SPARK hat deswegen Freigabepunkte und keine Vollautomatik.</li>
+    </ul>
+
+    <p class="q">Wie bewerten Sie, ob ein KI-Use-Case sich lohnt</p>
+    <ul>
+      <li>Drei Achsen: Wert, Datenreife, Risiko im Fehlerfall.</li>
+      <li>Ein Fall mit hohem Wert und unreifen Daten ist kein KI-Projekt, sondern zuerst ein Datenprojekt. Das sage ich dem Kunden auch dann, wenn es unbequem ist.</li>
+      <li>Und: was ist die Baseline. Wenn eine Regel oder ein Dashboard achtzig Prozent des Nutzens bringt, ist das oft die richtige Antwort.</li>
+      <li>Diese Antwort zeigt Beratungsreife. Sie ist stark, nutze sie.</li>
+    </ul>
+
+    <p class="q">Wie erklären Sie einem Nichttechniker, was ein Agent ist</p>
+    <ul>
+      <li>Ein Sprachmodell beantwortet eine Frage. Ein Agent bekommt ein Ziel, darf Werkzeuge benutzen, macht mehrere Schritte und prüft sich zwischendurch selbst.</li>
+      <li>Bild: kein Taschenrechner, sondern eine Praktikantin mit klarem Auftrag, Zugang zu bestimmten Systemen und der Pflicht, vor jedem wichtigen Schritt Bescheid zu sagen.</li>
+      <li>Das Bild ist gut, weil es sofort erklärt, warum Freigabepunkte nötig sind.</li>
+    </ul>
+
+    <p class="q">Was war Ihr größter Fehlschlag</p>
+    <ul>
+      <li>Nimm etwas Echtes und Fachliches, kein verkapptes Kompliment.</li>
+      <li>Brauchbares Muster: eine Lösung technisch fertig gehabt, aber die Adoption unterschätzt. Die Lehre daraus ist der Grund, warum in deiner Governance-Roadmap Adoption eine eigene Spur ist und nicht der letzte Punkt.</li>
+      <li>Oder: zuerst das stärkste Modell überall eingesetzt und über die Kosten gelernt, dass der gestufte Einsatz die richtige Antwort ist.</li>
+    </ul>
+
+    <p class="q">Wie gehen Sie mit einem Kunden um, der KI will, ohne zu wissen wofür</p>
+    <ul>
+      <li>Nicht mit Technologie anfangen, sondern mit dem Prozess, der weh tut.</li>
+      <li>Workshop-Format: Wo verbringen Menschen Zeit mit Dingen, die eine Maschine besser kann. Wo entstehen Fehler. Wo ist die Wartezeit.</li>
+      <li>Ergebnis ist eine priorisierte Liste, nicht ein Tool. Genau das machst du in deinen Enablement-Sessions bereits.</li>
+    </ul>
+
+    <p class="q">Haben Sie Pre-Sales-Erfahrung</p>
+    <ul>
+      <li>Ehrlich: keine formale Angebotsverantwortung in einem Vertriebszyklus.</li>
+      <li>Was du hast: du bringst interne Auftraggeber dazu, Vorhaben zu bewilligen, du hast eine Roadmap mit vierzig Initiativen durchgesetzt, du hältst Demos, und der Angebotsschritt ist in SPARK sogar als eigene Station modelliert.</li>
+      <li>Zusatz: du willst genau in diese Richtung wachsen, das ist ein Grund für den Wechsel.</li>
+    </ul>
+
+    <p class="q">Wo sehen Sie sich in drei Jahren</p>
+    <ul>
+      <li>Als jemand, der Verantwortung für die KI-Architektur eines größeren Kundenprogramms trägt und im Team andere darin ausbildet.</li>
+      <li>Der Enablement-Teil ist glaubwürdig, weil du ihn schon tust. Das unterscheidet die Antwort von der Standardformel.</li>
+    </ul>
+
+    <p class="q">Was wissen Sie über Capgemini</p>
+    <p>Siehe Abschnitt 07. Zwei bis drei präzise Punkte reichen und wirken besser als eine Aufzählung.</p>
+
+    <p class="q">Wie halten Sie sich fachlich auf dem Laufenden</p>
+    <ul>
+      <li>Konkret werden, nicht "ich lese viel". Du baust. Deine Website, RaiDAR, SPARK, das DPP-Repository auf GitHub.</li>
+      <li>Und du unterrichtest. Wer erklären muss, versteht genauer.</li>
+    </ul>
+
+    <div class="box teal">
+      <h4 style="margin-top:0">Zwei Fragen, auf die du dich zusätzlich einstellen solltest</h4>
+      <ul>
+        <li>Eine kurze Fallfrage. Capgemini arbeitet gern mit einem Miniszenario: "Ein Kunde will KI in der Instandhaltung, wie gehen Sie vor." Antworte strukturiert in drei Schritten und sage die Struktur vorher an: erst Ziel und Nutzen klären, dann Datenlage prüfen, dann kleinsten belastbaren Schnitt definieren.</li>
+        <li>Eine Frage zur Vertraulichkeit. "Wie gehen Sie mit sensiblen Kundendaten um." Deine Antwort ist die, die du sowieso lebst: auf Portfolioebene sprechen, nichts aus Systemen zitieren, im Zweifel weniger sagen.</li>
+      </ul>
+    </div>
+
+    <h2 class="pb"><span class="num">07</span>Was du über Capgemini wissen solltest</h2>
+
+    <div class="grid2">
+      <div>
+        <h4>Defense in Europa, drei Säulen</h4>
+        <ul>
+          <li>Produktion beschleunigen: Fabriken, digitale Werkzeuge, Lieferketten</li>
+          <li>Software Defined Defense: weg von hardwarezentriert, hin zu Plattformen, die über Code, Daten und Cloud wachsen</li>
+          <li>Sicherheit, Compliance und Souveränität: Kontrolle über Daten, Plattformen und geistiges Eigentum, konform mit europäischen und nationalen Rahmen</li>
+        </ul>
+        <p style="font-size:9pt">
+          Ihr eigener Satz dazu: Europa muss nicht nur mehr produzieren, sondern anders, und Geschwindigkeit
+          entscheidet über das Ergebnis.
+        </p>
+      </div>
+      <div>
+        <h4>Cyber Innovation Hub der Bundeswehr</h4>
+        <p>
+          Capgemini war beim InnoDay des CIHBw vertreten, mit einem Workshop gemeinsam mit Soldatinnen und Soldaten.
+          Herausgearbeitete Anwendungsfälle: Entlastung von Verwaltungsaufgaben, ein digitaler Ausbildungsberater,
+          Logistik und Materialwirtschaft, Lagesimulation, sowie Übersetzung mit kulturellem Kontext.
+          Betont wurden souveräne Umsetzungen, Partnerschaft mit Aleph Alpha, und ausdrücklich, dass kritische
+          Entscheidungen immer von Menschen bestätigt werden müssen.
+        </p>
+      </div>
+    </div>
+
+    <div class="box green">
+      <h4 style="margin-top:0">Der Anknüpfungspunkt, den du unbedingt setzen solltest</h4>
+      <p class="lead">
+        Genau dieser Satz, kritische Entscheidungen müssen immer vom Menschen bestätigt werden, ist das Prinzip,
+        nach dem SPARK gebaut ist. Fünfzehn Stationen, an jeder eine explizite Freigabe. Das ist kein Zufall,
+        sondern die Konsequenz aus der Arbeit in einem regulierten Umfeld.
+      </p>
+      <p>
+        Wenn du diesen Bezug im Gespräch herstellst, hast du in einem Satz gezeigt, dass du ihre Positionierung
+        kennst und dass deine Arbeit unabhängig davon zur selben Antwort gekommen ist. Das ist der stärkste
+        einzelne Moment, den du in diesem Gespräch setzen kannst.
+      </p>
+    </div>
+
+    <h4>Konzernstrategie, Stand 2026</h4>
+    <ul>
+      <li>Capgemini positioniert sich auf agentische KI als nächste Wertstufe, ausdrücklich als Unternehmensveränderung und nicht als Technologieeinführung.</li>
+      <li>Fünf Wertfelder, darunter ein "agentic control plane", also die Ebene für Steuerung und Governance von Agenten. Das ist wortwörtlich das, was SPARK im Kleinen ist.</li>
+      <li>Ziele bis 2028: Umsatzwachstum 5,5 bis 7,5 Prozent jährlich, Margensteigerung um 130 bis 150 Basispunkte.</li>
+      <li>Souveränität und Defense werden ausdrücklich als Wachstumsmärkte genannt.</li>
+      <li>Aus der Anzeige: rund 410.000 Mitarbeitende, über 50 Länder, 22,5 Milliarden Euro Umsatz 2025.</li>
+      <li>Capgemini ist auf der AFCEA-Fachausstellung in Bonn präsent, der zentralen Messe für Verteidigungs-IT in Deutschland.</li>
+    </ul>
+
+    <h2><span class="num">08</span>Deine Fragen an das Panel</h2>
+
+    <p>
+      Wähle vier bis fünf, nicht mehr. Gute Fragen sind der Teil des Gesprächs, an den man sich erinnert.
+      Frage nicht nach Dingen, die in der Anzeige stehen.
+    </p>
+
+    <h4>An Franziska Rosenbaum, Domäne und Beratung</h4>
+    <ul>
+      <li>Wie verteilt sich die Arbeit heute zwischen Bundeswehr, Behörden und Verteidigungsindustrie, und wo wächst sie am schnellsten.</li>
+      <li>Wie sieht ein typischer Einstieg bei einem neuen Kunden im Ressort aus. Beginnt das eher mit einem Assessment oder direkt mit einem Vorhaben.</li>
+      <li>Welche Rolle spielt die Sicherheitsüberprüfung im ersten Jahr, und welche Projekte laufen ohne Einstufung.</li>
+    </ul>
+
+    <h4>An Lilli Bruckschen, fachlich</h4>
+    <ul>
+      <li>Wenn Sie auf die Vorhaben der letzten zwölf Monate schauen, woran scheitern KI-Initiativen in diesem Umfeld am häufigsten. An der Technik, an den Daten oder an der Abnahme.</li>
+      <li>Wie geht Capgemini mit dem Spannungsfeld zwischen souveränen und kommerziellen Modellen um. Wo ist heute die Grenze in der Praxis.</li>
+      <li>Wie weit ist Edge und Embedded bei Ihnen tatsächlich in Projekten, und wie viel davon ist noch Konzeptarbeit.</li>
+    </ul>
+
+    <h4>Zur Rolle</h4>
+    <ul>
+      <li>Wie sieht das Team aus, in das die Rolle eingebettet ist, und wie viele Architektinnen und Architekten arbeiten heute im Defense-Bereich.</li>
+      <li>Wie ist die Rolle zwischen Lieferung und Angebotsarbeit aufgeteilt, ungefähr in Prozent.</li>
+      <li>Was müsste in den ersten sechs Monaten passieren, damit Sie sagen, die Besetzung war richtig.</li>
+    </ul>
+
+    <div class="box amber">
+      <p>
+        Die letzte Frage ist die beste. Sie zwingt zu einer konkreten Antwort, sie zeigt, dass du in Ergebnissen
+        denkst, und sie gibt dir Material für die zweite Runde.
+      </p>
+    </div>
+
+    <h2><span class="num">09</span>Rote Linien</h2>
+
+    <div class="grid2">
+      <div>
+        <h4>Nicht sagen</h4>
+        <ul>
+          <li>Keine internen Airbus-Details, keine Systemzahlen, keine Namen von Ansprechpartnern. Portfolioebene genügt.</li>
+          <li>Nichts über Migrationsvorhaben oder interne Umstellungen beim Kunden.</li>
+          <li>Kein Wort gegen CIMPA oder Sopra Steria.</li>
+          <li>Nicht behaupten: Computer Vision in Produktion, Embedded- oder Echtzeitentwicklung, Zulassungserfahrung, Bundeswehr-Kenntnisse, formale Angebotsverantwortung.</li>
+          <li>Nicht raten. "Das weiß ich nicht, aber so würde ich es angehen" ist eine vollwertige Antwort.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Immer tun</h4>
+        <ul>
+          <li>Grenze zuerst selbst benennen, dann die nächstliegende echte Erfahrung.</li>
+          <li>Bei jeder Projektfrage die Entscheidung nennen, nicht nur das Ergebnis.</li>
+          <li>Zahlen verwenden: vierzig Initiativen, dreißig geliefert, elf Agenten, fünfzehn Stationen. Zahlen bleiben hängen.</li>
+          <li>Carl Hase früh erwähnen, spätestens in der Selbstvorstellung.</li>
+          <li>Am Ende sagen, dass du die Rolle willst. Das vergessen erstaunlich viele.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2><span class="num">10</span>Vor dem Gespräch</h2>
+    <div class="grid3">
+      <div>
+        <h4>Mittwochabend</h4>
+        <ul>
+          <li>Selbstvorstellung zweimal laut</li>
+          <li>Vertrag: Kündigungsfrist nachsehen</li>
+          <li>Beide LinkedIn-Profile ansehen</li>
+          <li>Anzeige noch einmal lesen</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Donnerstag, 13:40</h4>
+        <ul>
+          <li>Teams testen, Kamera und Ton</li>
+          <li>Licht von vorne, ruhiger Hintergrund</li>
+          <li>Wasser bereitstellen</li>
+          <li>Diese Seite ausgedruckt daneben</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Danach</h4>
+        <ul>
+          <li>Noch am selben Tag Notizen machen</li>
+          <li>Kurze Dankesmail an Magdalena Wybraniec, mit Bitte um Weiterleitung</li>
+          <li>Carl Hase eine Nachricht schreiben</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============ CHEAT SHEET ============ -->
+    <div class="cheat pb">
+      <h2 style="margin-top:0"><span class="num">SPICK</span>Eine Seite für den Bildschirm</h2>
+
+      <div class="grid2">
+        <div>
+          <h4>Der eine Satz</h4>
+          <p class="lead">
+            Ich baue KI-Systeme dort, wo Nachvollziehbarkeit und Datenqualität über den Erfolg entscheiden.
+          </p>
+
+          <h4>Zahlen</h4>
+          <ul>
+            <li>40+ Initiativen, 30 geliefert</li>
+            <li>11 Agenten, 15 Stationen, Freigabe an jeder</li>
+            <li>3 Retrieval-Wege: lexikalisch, vektoriell, graphbasiert</li>
+            <li>seit 2023 bei CIMPA, seit Jan 2026 AI Accelerator</li>
+            <li>3 Sprachen: Deutsch, Englisch, Spanisch</li>
+          </ul>
+
+          <h4>Wenn Defense-Lücke</h4>
+          <ul>
+            <li>Nie Bundeswehr, aber Luftfahrt</li>
+            <li>Sicherheitskritisch, zertifiziert, 30 Jahre Lebenszyklus</li>
+            <li>Botschaft Guatemala: Behördentaktung</li>
+            <li>"idealerweise" steht in der Anzeige</li>
+          </ul>
+
+          <h4>Wenn Architektur-Lücke</h4>
+          <ul>
+            <li>Hybrid statt reiner Vektorsuche, weil exakte Namen zählen</li>
+            <li>11 Rollen statt ein Generalist, weil prüfbar</li>
+            <li>Gestufte Modelle statt stärkstes Modell überall</li>
+            <li>Freigaben statt Vollautomatik</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Wenn Edge oder Embedded</h4>
+          <ul>
+            <li>Grenze zuerst: keine Embedded-Entwicklung, keine Zulassung</li>
+            <li>Dann der Satz: das Problem am Edge ist der Lebenszyklus, nicht die Modellgröße</li>
+            <li>Und die Brücke: Predictive Maintenance scheitert an Daten, nicht an Modellen</li>
+          </ul>
+
+          <h4>Der Capgemini-Moment</h4>
+          <p>
+            Ihr Prinzip vom CIHBw: kritische Entscheidungen müssen vom Menschen bestätigt werden.
+            Genau danach ist SPARK gebaut.
+          </p>
+
+          <h4>Gehalt</h4>
+          <ul>
+            <li>Erst fragen: Karrierestufe, Fixum und variabler Anteil</li>
+            <li>Dann: etwa 90.000 Fixum</li>
+            <li>Spanne 85.000 bis 95.000</li>
+            <li>Danach schweigen</li>
+          </ul>
+
+          <h4>Deine Fragen</h4>
+          <ul>
+            <li>Woran scheitern KI-Vorhaben hier am häufigsten</li>
+            <li>Wie viel Lieferung, wie viel Angebot, in Prozent</li>
+            <li>Welche Projekte laufen ohne Einstufung</li>
+            <li>Was muss in sechs Monaten passiert sein, damit die Besetzung richtig war</li>
+          </ul>
+
+          <h4>Zum Schluss</h4>
+          <p class="lead">
+            Sagen, dass du die Rolle willst. Und warum: die Verbindung aus anspruchsvoller Datenarbeit und einem
+            Umfeld, in dem Verlässlichkeit zählt.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div>Interviewvorbereitung · Capgemini AI Solutions Architect Defense · 10.09.2026</div>
+      <div>Crista Villatoro-Müller · cristavillatoro.com</div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>
