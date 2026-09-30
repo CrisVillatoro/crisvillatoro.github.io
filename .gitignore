@@ -1,7 +1,1 @@
-# Private working files - never publish (GitHub Pages serves everything in this repo)
-Claude outputs/
-private/
-*.docx
-
-# macOS
 .DS_Store
