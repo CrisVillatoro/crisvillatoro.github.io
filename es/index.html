@@ -505,21 +505,6 @@
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.on { opacity: 1; transform: none; }
 
-  /* ---------- currently reading ---------- */
-  .reading-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .book {
-    background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--accent);
-    border-radius: 0 10px 10px 0; padding: 22px 24px;
-  }
-  .book .b-title { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -.01em; }
-  .book .b-author { font-size: 14px; color: var(--text-dim); margin-top: 3px; }
-  .book .b-note { font-size: 15px; color: var(--text-dim); margin-top: 11px; line-height: 1.6; }
-  @media (max-width: 760px) { .reading-grid { grid-template-columns: 1fr; } }
-
-  .reading-sub { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px;
-    letter-spacing: .16em; text-transform: uppercase; color: var(--text-dim); font-weight: 600;
-    margin: 40px 0 16px; }
-  .reading-sub:first-of-type { margin-top: 0; }
   .photo-card { margin-bottom: 26px; }
   .photo-card img { width: 128px; height: 128px; border-radius: 50%; object-fit: cover;
     object-position: 50% 18%; display: block; border: 2px solid var(--border);
@@ -865,53 +850,6 @@
         <div class="chips">
           <span class="chip">Stakeholder Management</span><span class="chip">Requirements Engineering</span>
           <span class="chip">Workshop Facilitation</span><span class="chip">Solution Architecture</span><span class="chip">AI Enablement</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="reading">
-  <div class="wrap">
-    <span class="kicker reveal">Aprendizaje</span>
-    <h2 class="reveal">Lo que leo y escucho</h2>
-    <p class="section-sub reveal">Tres libros abiertos ahora mismo y un podcast que nunca me salto, todo por razones que aparecen en mi trabajo.</p>
-    <div class="reading-sub">Libros</div>
-    <div class="reading-grid">
-      <div class="book reveal">
-        <div class="b-title">Designing Multi-Agent Systems</div>
-        <div class="b-author">Victor Dibia · Principles, Patterns, and Implementation for AI Agents</div>
-        <div class="b-note">
-          Lo leo contrastándolo con SPARK: qué patrones cumplen ya mis once agentes y dónde decidí hacerlo
-          de otra manera, y por qué.
-        </div>
-      </div>
-      <div class="book reveal">
-        <div class="b-title">Visualizing Generative AI</div>
-        <div class="b-author">Priyanka Vergadia y Valliappa Lakshmanan · How AI Paints, Writes, and Assists</div>
-        <div class="b-note">
-          Cómo funciona la IA generativa, explicado de forma visual. Lo leo pensando en mis sesiones de
-          enablement: qué explicaciones funcionan con quienes no construyen modelos.
-        </div>
-      </div>
-      <div class="book reveal">
-        <div class="b-title">Designing Data-Intensive Applications</div>
-        <div class="b-author">Martin Kleppmann · The Big Ideas Behind Reliable, Scalable, and Maintainable Systems</div>
-        <div class="b-note">
-          Lo leo contrastándolo con el pipeline de recuperación de RaiDAR y el portafolio de gobernanza: los mismos
-          compromisos que cubre sobre replicación, particionado y consistencia aparecen cuando plataformas como
-          Skywise deben mantenerse rápidas y fiables a la vez.
-        </div>
-      </div>
-    </div>
-    <div class="reading-sub">Podcast</div>
-    <div class="reading-grid">
-      <div class="book reveal">
-        <div class="b-title">Super Data Science: ML &amp; AI Podcast</div>
-        <div class="b-author">Jon Krohn · el que escucho siempre</div>
-        <div class="b-note">
-          Conversaciones largas con gente que construye, en lugar de anuncios. Es donde me mantengo al día de
-          lo que de verdad funciona en el campo, no de lo que se acaba de lanzar.
         </div>
       </div>
     </div>
@@ -1358,7 +1296,7 @@
       srcs: [['Proyectos personales', '/es/personal/']] },
     { q: '¿Qué está leyendo y escuchando?', kw: ['lee', 'leyendo', 'libro', 'libros', 'escucha', 'escuchando', 'podcast', 'kleppmann', 'dibia', 'vergadia'],
       a: "Tres libros abiertos ahora mismo: <strong>Designing Multi-Agent Systems</strong> de Victor Dibia, leído contrastándolo con los propios patrones de SPARK, <strong>Visualizing Generative AI</strong> de Priyanka Vergadia y Valliappa Lakshmanan, pensando en sus sesiones de enablement, y <strong>Designing Data-Intensive Applications</strong> de Martin Kleppmann, leído contrastándolo con el pipeline de recuperación de RaiDAR y el portafolio de gobernanza. En podcasts, nunca se salta <strong>Super Data Science</strong>.",
-      srcs: [['Lectura y escucha', '#reading']] },
+      srcs: [['Lectura y escucha', '/es/personal/#reading']] },
   ];
   const FALLBACK = {
     a: "Buena pregunta — pero solo soy una demo con respuestas predefinidas; la Crista real es mucho más interesante. Puedo contarte sobre sus <strong>proyectos, su trabajo en gobernanza, su stack técnico, sus formaciones, sus estudios o cómo contactarla</strong> — o escríbele directamente.",
