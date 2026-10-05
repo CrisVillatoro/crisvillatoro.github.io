@@ -97,6 +97,32 @@
   }
   /* i18n-chrome-end */
 
+  /* ---------- mobile menu ---------- */
+  .nav-toggle { display: none; }
+  @media (max-width: 720px) {
+    .nav-inner { padding: 0 16px; gap: 10px; }
+    .nav-links { margin-left: auto; }
+    .nav-toggle {
+      display: flex; flex-direction: column; justify-content: center; gap: 4px; flex: none;
+      width: 40px; height: 40px; padding: 0 10px; background: none; cursor: pointer;
+      border: 1px solid var(--border); border-radius: 10px;
+    }
+    .nav-toggle span { display: block; height: 2px; background: var(--text); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    nav.open .nav-links {
+      position: absolute; top: 64px; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 8px 24px 20px; background: var(--bg); border-bottom: 1px solid var(--border);
+    }
+    nav.open .nav-links li { display: block; }
+    nav.open .nav-links li a { display: block; padding: 12px 0; font-size: 16px; }
+    nav.open .nav-links li.lang-switch { display: flex; padding: 12px 0; }
+    nav.open .nav-links .lang-switch a { padding: 4px 8px; font-size: 12px; }
+    nav.open .nav-links .nav-cta { margin-top: 8px; padding: 12px 16px; text-align: center; }
+  }
+
   /* ---------- hero ---------- */
   header.hero {
     position: relative; overflow: hidden;
@@ -542,7 +568,7 @@
 <nav>
   <div class="nav-inner">
     <a class="logo" href="/">Crista <span>Villatoro</span></a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-menu">
       <li><a href="/#about">About</a></li>
       <li><a href="/#projects">Projects</a></li>
       <li><a href="/#skills">Skills</a></li>
@@ -551,6 +577,7 @@
       <li class="lang-switch"><a href="/personal/" class="active">EN</a><a href="/de/personal/">DE</a><a href="/es/personal/">ES</a></li>
       <li><a class="nav-cta" href="/#contact">Get in touch</a></li>
     </ul>
+    <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -575,6 +602,7 @@
     <div class="pp-card reveal">
       <h3>Iris</h3>
       <div class="pp-role">Personal project · in development · prototype running</div>
+      <p><a class="proj-link" href="http://iris.cristavillatoro.com" target="_blank" rel="noopener">Open Iris →</a></p>
       <p>
         Iris is a personal knowledge platform that connects world news, emerging technology and practical
         learning. It exists because staying informed and actually building something are usually two separate
@@ -605,7 +633,6 @@
         <li>The agent workflows currently run as educational simulations, not as a production backend.</li>
         <li>The planned backend will coordinate research, analysis, verification and editorial work, and make
           the process behind each briefing visible rather than hiding it behind a finished article.</li>
-        <li>Public deployment is still pending.</li>
       </ul>
 
       <div class="pp-h4">Stack</div>
@@ -725,6 +752,15 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
   }, { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+// mobile menu
+{
+  const nav = document.querySelector('nav');
+  const toggle = nav.querySelector('.nav-toggle');
+  const setOpen = open => { nav.classList.toggle('open', open); toggle.setAttribute('aria-expanded', String(open)); };
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+  nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+}
 </script>
 </body>
 </html>

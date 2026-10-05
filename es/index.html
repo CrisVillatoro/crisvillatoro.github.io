@@ -108,6 +108,32 @@
   }
   /* i18n-chrome-end */
 
+  /* ---------- mobile menu ---------- */
+  .nav-toggle { display: none; }
+  @media (max-width: 720px) {
+    .nav-inner { padding: 0 16px; gap: 10px; }
+    .nav-links { margin-left: auto; }
+    .nav-toggle {
+      display: flex; flex-direction: column; justify-content: center; gap: 4px; flex: none;
+      width: 40px; height: 40px; padding: 0 10px; background: none; cursor: pointer;
+      border: 1px solid var(--border); border-radius: 10px;
+    }
+    .nav-toggle span { display: block; height: 2px; background: var(--text); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    nav.open .nav-links {
+      position: absolute; top: 64px; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 8px 24px 20px; background: var(--bg); border-bottom: 1px solid var(--border);
+    }
+    nav.open .nav-links li { display: block; }
+    nav.open .nav-links li a { display: block; padding: 12px 0; font-size: 16px; }
+    nav.open .nav-links li.lang-switch { display: flex; padding: 12px 0; }
+    nav.open .nav-links .lang-switch a { padding: 4px 8px; font-size: 12px; }
+    nav.open .nav-links .nav-cta { margin-top: 8px; padding: 12px 16px; text-align: center; }
+  }
+
   /* ---------- hero ---------- */
   header.hero {
     position: relative; overflow: hidden;
@@ -516,7 +542,7 @@
 <nav>
   <div class="nav-inner">
     <a class="logo" href="#top">Crista <span>Villatoro</span></a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-menu">
       <li><a href="#about">Sobre mí</a></li>
       <li><a href="#projects">Proyectos</a></li>
       <li><a href="#skills">Competencias</a></li>
@@ -525,6 +551,7 @@
       <li class="lang-switch"><a href="/">EN</a><a href="/de/">DE</a><a href="/es/" class="active">ES</a></li>
       <li><a class="nav-cta" href="#contact">Contacto</a></li>
     </ul>
+    <button type="button" class="nav-toggle" aria-label="Menú" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -1293,7 +1320,7 @@
       srcs: [['Experiencia', '#experience']] },
     { q: '¿Qué ha creado para sí misma?', kw: ['ha creado', 'proyecto personal', 'iris', 'family scout', 'fuera del trabajo', 'tiempo libre', 'hobby', 'día a día'],
       a: "Dos proyectos activos. <strong>Iris</strong> es una plataforma personal de conocimiento que conecta noticias, tecnología emergente y aprendizaje práctico: un prototipo en marcha, con flujos de agentes que hoy funcionan como simulaciones. <strong>Berlin Family Scout</strong> planea salidas con niños pequeños a partir de datos abiertos con trazabilidad en cada dato. El plan de producto está terminado y la construcción empezó en septiembre de 2026. Misma disciplina que en el trabajo, con menos en juego y un ciclo de feedback más honesto.",
-      srcs: [['Proyectos personales', '/es/personal/']] },
+      srcs: [['Proyectos personales', '/es/personal/'], ['Iris', 'http://iris.cristavillatoro.com']] },
     { q: '¿Qué está leyendo y escuchando?', kw: ['lee', 'leyendo', 'libro', 'libros', 'escucha', 'escuchando', 'podcast', 'kleppmann', 'dibia', 'vergadia'],
       a: "Tres libros abiertos ahora mismo: <strong>Designing Multi-Agent Systems</strong> de Victor Dibia, leído contrastándolo con los propios patrones de SPARK, <strong>Visualizing Generative AI</strong> de Priyanka Vergadia y Valliappa Lakshmanan, pensando en sus sesiones de enablement, y <strong>Designing Data-Intensive Applications</strong> de Martin Kleppmann, leído contrastándolo con el pipeline de recuperación de RaiDAR y el portafolio de gobernanza. En podcasts, nunca se salta <strong>Super Data Science</strong>.",
       srcs: [['Lectura y escucha', '/es/personal/#reading']] },
@@ -1371,6 +1398,15 @@
     }, 28);
   }
   renderChips();
+// mobile menu
+{
+  const nav = document.querySelector('nav');
+  const toggle = nav.querySelector('.nav-toggle');
+  const setOpen = open => { nav.classList.toggle('open', open); toggle.setAttribute('aria-expanded', String(open)); };
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+  nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+}
 </script>
 
 </body>

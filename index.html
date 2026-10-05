@@ -108,6 +108,32 @@
   }
   /* i18n-chrome-end */
 
+  /* ---------- mobile menu ---------- */
+  .nav-toggle { display: none; }
+  @media (max-width: 720px) {
+    .nav-inner { padding: 0 16px; gap: 10px; }
+    .nav-links { margin-left: auto; }
+    .nav-toggle {
+      display: flex; flex-direction: column; justify-content: center; gap: 4px; flex: none;
+      width: 40px; height: 40px; padding: 0 10px; background: none; cursor: pointer;
+      border: 1px solid var(--border); border-radius: 10px;
+    }
+    .nav-toggle span { display: block; height: 2px; background: var(--text); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    nav.open .nav-links {
+      position: absolute; top: 64px; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 8px 24px 20px; background: var(--bg); border-bottom: 1px solid var(--border);
+    }
+    nav.open .nav-links li { display: block; }
+    nav.open .nav-links li a { display: block; padding: 12px 0; font-size: 16px; }
+    nav.open .nav-links li.lang-switch { display: flex; padding: 12px 0; }
+    nav.open .nav-links .lang-switch a { padding: 4px 8px; font-size: 12px; }
+    nav.open .nav-links .nav-cta { margin-top: 8px; padding: 12px 16px; text-align: center; }
+  }
+
   /* ---------- hero ---------- */
   header.hero {
     position: relative; overflow: hidden;
@@ -516,7 +542,7 @@
 <nav>
   <div class="nav-inner">
     <a class="logo" href="#top">Crista <span>Villatoro</span></a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-menu">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -525,6 +551,7 @@
       <li class="lang-switch"><a href="/" class="active">EN</a><a href="/de/">DE</a><a href="/es/">ES</a></li>
       <li><a class="nav-cta" href="#contact">Get in touch</a></li>
     </ul>
+    <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -1293,7 +1320,7 @@
       srcs: [['Experience', '#experience']] },
     { q: 'What has she built for herself?', kw: ['built for herself', 'personal project', 'side project', 'iris', 'family scout', 'spare time', 'free time', 'hobby', 'outside work', 'everyday life'],
       a: "Two live ones. <strong>Iris</strong> is a personal knowledge platform connecting news, emerging tech and practical learning — prototype running, with agent workflows that currently run as simulations. <strong>Berlin Family Scout</strong> plans toddler outings from open data with provenance on every fact — the product plan is complete and the build started in September 2026. Same discipline as her work projects, smaller stakes, a more honest feedback loop.",
-      srcs: [['Personal projects', '/personal/']] },
+      srcs: [['Personal projects', '/personal/'], ['Iris', 'http://iris.cristavillatoro.com']] },
     { q: 'What is she reading and listening to?', kw: ['read', 'reading', 'book', 'listen', 'listening', 'podcast', 'kleppmann', 'dibia', 'vergadia'],
       a: "Three books open right now: <strong>Designing Multi-Agent Systems</strong> by Victor Dibia, read against SPARK's own patterns; <strong>Visualizing Generative AI</strong> by Priyanka Vergadia and Valliappa Lakshmanan, read with her enablement sessions in mind; and <strong>Designing Data-Intensive Applications</strong> by Martin Kleppmann, read against RaiDAR's retrieval pipeline and the governance portfolio. For podcasts, she never skips <strong>Super Data Science</strong>.",
       srcs: [['Reading & listening', '/personal/#reading']] },
@@ -1371,6 +1398,15 @@
     }, 28);
   }
   renderChips();
+// mobile menu
+{
+  const nav = document.querySelector('nav');
+  const toggle = nav.querySelector('.nav-toggle');
+  const setOpen = open => { nav.classList.toggle('open', open); toggle.setAttribute('aria-expanded', String(open)); };
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+  nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+}
 </script>
 
 </body>

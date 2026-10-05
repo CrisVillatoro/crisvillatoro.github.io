@@ -97,6 +97,32 @@
   }
   /* i18n-chrome-end */
 
+  /* ---------- mobile menu ---------- */
+  .nav-toggle { display: none; }
+  @media (max-width: 720px) {
+    .nav-inner { padding: 0 16px; gap: 10px; }
+    .nav-links { margin-left: auto; }
+    .nav-toggle {
+      display: flex; flex-direction: column; justify-content: center; gap: 4px; flex: none;
+      width: 40px; height: 40px; padding: 0 10px; background: none; cursor: pointer;
+      border: 1px solid var(--border); border-radius: 10px;
+    }
+    .nav-toggle span { display: block; height: 2px; background: var(--text); border-radius: 2px; transition: transform .2s, opacity .2s; }
+    nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    nav.open .nav-links {
+      position: absolute; top: 64px; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 8px 24px 20px; background: var(--bg); border-bottom: 1px solid var(--border);
+    }
+    nav.open .nav-links li { display: block; }
+    nav.open .nav-links li a { display: block; padding: 12px 0; font-size: 16px; }
+    nav.open .nav-links li.lang-switch { display: flex; padding: 12px 0; }
+    nav.open .nav-links .lang-switch a { padding: 4px 8px; font-size: 12px; }
+    nav.open .nav-links .nav-cta { margin-top: 8px; padding: 12px 16px; text-align: center; }
+  }
+
   /* ---------- hero ---------- */
   header.hero {
     position: relative; overflow: hidden;
@@ -542,7 +568,7 @@
 <nav>
   <div class="nav-inner">
     <a class="logo" href="/de/">Crista <span>Villatoro</span></a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-menu">
       <li><a href="/de/#about">Über mich</a></li>
       <li><a href="/de/#projects">Projekte</a></li>
       <li><a href="/de/#skills">Skills</a></li>
@@ -551,6 +577,7 @@
       <li class="lang-switch"><a href="/personal/">EN</a><a href="/de/personal/" class="active">DE</a><a href="/es/personal/">ES</a></li>
       <li><a class="nav-cta" href="/de/#contact">Kontakt</a></li>
     </ul>
+    <button type="button" class="nav-toggle" aria-label="Menü" aria-expanded="false" aria-controls="nav-menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -575,6 +602,7 @@
     <div class="pp-card reveal">
       <h3>Iris</h3>
       <div class="pp-role">Persönliches Projekt · in Entwicklung · Prototyp läuft</div>
+      <p><a class="proj-link" href="http://iris.cristavillatoro.com" target="_blank" rel="noopener">Iris öffnen →</a></p>
       <p>
         Iris ist eine persönliche Wissensplattform, die Weltnachrichten, neue Technologien und praktisches Lernen verbindet. Sie existiert, weil Informiertbleiben und tatsächlich etwas bauen normalerweise zwei getrennte Tätigkeiten sind, und ich wollte einen Weg: verstehen, was passiert, herausfinden, warum es zählt, und dann lernen, wie man es anwendet.
       </p>
@@ -598,7 +626,6 @@
         <li>Die Nachrichtenausgaben sind noch nicht mit der Oberfläche verbunden. Das ist der nächste Schritt.</li>
         <li>Die Agenten-Workflows laufen derzeit als didaktische Simulationen, nicht als produktives Backend.</li>
         <li>Das geplante Backend soll Recherche, Analyse, Verifikation und redaktionelle Arbeit koordinieren und den Prozess hinter jedem Briefing sichtbar machen, statt ihn hinter einem fertigen Artikel zu verstecken.</li>
-        <li>Die öffentliche Bereitstellung steht noch aus.</li>
       </ul>
 
       <div class="pp-h4">Stack</div>
@@ -702,6 +729,15 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
   }, { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+// mobile menu
+{
+  const nav = document.querySelector('nav');
+  const toggle = nav.querySelector('.nav-toggle');
+  const setOpen = open => { nav.classList.toggle('open', open); toggle.setAttribute('aria-expanded', String(open)); };
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+  nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+}
 </script>
 </body>
 </html>
